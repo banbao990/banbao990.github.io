@@ -1,196 +1,326 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8" />
+    <title>自动出题并判分</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/calculator.ico" />
+    <link rel="stylesheet" href="css/buttons.css" />
+    <style>
+        * {
+            font-size: 20px;
+            font-family: Consolas,'Adobe Kaiti Std';
+        }
 
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+        .frame {
+            width: 360px;
+            height: 700px;
+            margin: auto;
+            background-color: #48b842;
+            position: relative;
+        }
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+        .introduction {
+            text-align: center;
+            border-bottom: 1px rgba(255, 3, 3, 0.1607843137254902) solid;
+        }
 
+        .question {
+            left: 45px;
+            position: relative;
+        }
+
+        .answer {
+            margin: auto;
+            position: relative;
+            text-align: center;
+        }
+
+        .answer_text {
+            width: 260px;
+            text-align: center;
+        }
+
+        .buttons {
+            text-align: center;
+            margin: 20px 0px;
+            height: 210px;
+        }
+
+        .my_button {
+            font-family: 'Kaiti';
+            padding: 2px 0px;
+            margin: 10px auto;
+        }
+
+        .difficult {
+            position: absolute;
+            height: auto;
+            width: 238px;
+            left: 400px;
+            top: 314px;
+            background-color: yellow;
+            text-align: center;
+            font-size: 1.1em;
+            display: none;
+        }
+
+        button:hover {
+            background-color: red;
+        }
+
+        .history {
+            overflow-y: auto;
+            height: 250px;
+            width: 300px;
+            position: relative;
+            left: 400px;
+            bottom: 500px;
+            background-color: rgba(210, 180, 140, 0.10196078431372549);
+        }
+
+        .score_frame {
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            left: -250px;
+            top: 100px;
+            background: rgba(211, 193, 193, 0.09019607843137255);
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 25px;
+            color: red;
+        }
+
+        .img {
+            height: 200px;
+            width: 200px;
+            overflow: hidden;
+            position: absolute;
+            right: -260px;
+            top: 400px;
+            display: none;
+        }
+
+            .img img { /*图片占满div*/
+                height: 100%;
+                width: 100%;
+            }
+
+        .battery {
+            width: 150px;
+            height: 30px;
+            border: 1px rgb(0, 0, 0) solid;
+            border-radius: 2px;
+            position: relative;
+            transition: box-shadow,1s;
+            top: 34px;
+            margin: 0 auto;
+            box-shadow: inset 0px 0px 0px #00ff0a;
+        }
+
+        .battery_frame {
+            position: absolute;
+            width: 200px;
+            background-color: rgba(0,0,0, 0.02);
+            height: 100px;
+            vertical-align: middle;
+            border-radius: 1px;
+            margin-right: 100px;
+            top: 300px;
+            left: -300px;
+        }
+        .yes_or_no {
+            height: auto;
+            width: 250px;
+            position: absolute;
+            left: -324px;
+            top: 500px;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            background-color: rgba(76, 171, 165, 0.06);
+            color:red;
+            display:none;
+        }
+    </style>
+</head>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+    <div class="frame">
+        <div class="introduction">
+            介绍<br />
+            1.点击按钮实现各自功能<br />
+            2.每个整数都在1-10之间<br />
+            3.答对+2,基本正确+1,答错-2<br />
+            4.分数:10分良好,20分优秀<br />
+            5.无限小数保留4位小数<br />
+            6.enter:判分;shift:出题;ctrl:提示<br />
+        </div>
+        <div class="tip">题目:</div>
+        <div id="question" class="question">question</div>
+        <div id="tip_show_answer" class="tip">答案:</div>
+        <div class="answer">
+            <input id="answer_text" class="answer_text" onkeydown="keyboredCMD()" type="text" autofocus placeholder="请在此输入你的答案" />
+        </div>
+        <div class="buttons">
+            <a class="show_another_question my_button btn btn-1" onclick="show_another_question_function()">
+                <svg>
+                    <rect x="0" y="0" fill="none" width="100%" height="100%" />
+                </svg>
+                出题
+            </a>
+            <a class="btn btn-2 judge my_button" onclick="judge()">判分</a><!--href="#"-->
+            <a class="btn btn-3 show_answer my_button" onclick="show_answer()">
+                <span>提示</span>
+            </a>
+        </div>
+        <div id="history" class="history">答题历史:<br /></div>
+        <div class="difficult" id="to_difficult">这道题超级难哦!</div>
+        <div class="difficult" id="difficult">哦豁,这道题有点小难!</div>
+        <div class="score_frame">
+            <div>得分:</div>
+            <div class="score" id="score">0</div>
+        </div>
+        <div class="img" id="img1">
+            <img src="images/jia_you.jpg" alt="jia_you" />
+        </div>
+        <div class="img" id="img2">
+            <img src="images/you_are_good_enough.jpg" alt="you_are_good_enough" />
+        </div>
+        <div class="img" id="img3">
+            <img src="images/super_star.jpg" alt="super_star" />
+        </div>
+        <div class="battery_frame">
+            <div class="battery" id="battery"></div>
+        </div>
+        <div id="yes" class="yes_or_no">恭喜你答对了</div>
+        <div id="no" class="yes_or_no">答错了,再接再厉哦</div>
+        <div id="just_so_so" class="yes_or_no">小老弟,差点意思哦</div>
+        <script>
+            function keyboredCMD() {//实现enter键换题
+                switch (event.keyCode) {
+                    case 13://13:enter
+                        judge();
+                        break;
+                    case 16://16:shift
+                        show_another_question_function();
+                        break;
+                    case 17://17:ctrl
+                        show_answer();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            var number1, number2, fake_operator, operator, answer;
+            var is_judge = 1;//判断有没有判断过
+            var can_tip = 0; //判断能不能提示       //一开始不能提示，提示过了就不提示
+            function show_another_question_function() {
+                is_judge = 0;
+                can_tip = 1;
+                document.getElementById('to_difficult').style.display = 'none';
+                document.getElementById('difficult').style.display = 'none';
+                document.getElementById('tip_show_answer').innerHTML = "答案:";
+                number1 = Math.floor((Math.random() * 10)) + 1;
+                number2 = Math.floor((Math.random() * 10)) + 1;
+                fake_operator = Math.random();
+                if (fake_operator < 0.1) {
+                    number2 = Math.floor((Math.random() * 3)) + 2;
+                    operator = '^';
+                    answer = Math.pow(number1, number2);
+                    document.getElementById('to_difficult').style.display = 'block';
+                } else if (fake_operator < 0.3) {
+                    operator = '-';
+                    answer = number1 - number2;
+                    if (answer < 0)
+                        document.getElementById('difficult').style.display = 'block';
+                } else if (fake_operator < 0.5) {
+                    operator = '*';
+                    answer = number1 * number2;
+                } else if (fake_operator < 0.7) {
+                    operator = '/';
+                    answer = number1 / number2;
+                } else {
+                    operator = '+';
+                    answer = number1 + number2;
+                }
+                document.getElementById('question').innerHTML = number1 + " " + operator + " " + number2 + " =";
+                document.getElementById('answer_text').value = "";
+            }
+
+            function judge() {
+                if (is_judge)
+                    return;
+                is_judge = 1;
+                var XX = document.getElementById('history');
+                var input_answer = parseFloat(document.getElementById('answer_text').value);
+                var test = "";                                          //检验有没有输入
+                test = document.getElementById('answer_text').value;
+                let output_answer = Math.round(answer * 10000) / 10000; //小数四舍五入到小数点后4位
+                if (test != "" && !isNaN(input_answer))
+                    XX.innerHTML += number1 + " " + operator + " " + number2 + " = " + input_answer + " ";
+                if (test === "") {
+                    is_judge = 0;
+                    XX.innerHTML += "没有答题哦<br />";
+                    document.getElementById('yes').style.display = 'none';
+                    document.getElementById('just_so_so').style.display = 'none';
+                    document.getElementById('no').style.display = 'none';
+                } else if (isNaN(input_answer)) {
+                    is_judge = 0;
+                    XX.innerHTML += "输入格式错误哦<br />";
+                }
+                else if (input_answer == output_answer) {
+                    XX.innerHTML += "完全正确<br />";
+                    let obj = document.getElementById('score');
+                    obj.innerHTML = parseInt(obj.innerHTML) + 2;
+                    document.getElementById('yes').style.display = 'block';
+                    document.getElementById('just_so_so').style.display = 'none';
+                    document.getElementById('no').style.display = 'none';
+                }
+                else if (Math.abs(input_answer - output_answer) < 0.001) {
+                    XX.innerHTML += "基本正确<br />" + "****答案是" + output_answer + "<br />";
+                    let obj = document.getElementById('score');
+                    obj.innerHTML = parseInt(obj.innerHTML) + 1;
+                    document.getElementById('yes').style.display = 'none';
+                    document.getElementById('just_so_so').style.display = 'block';
+                    document.getElementById('no').style.display = 'none';
+                }
+                else {
+                    XX.innerHTML += "做错了哦<br />" + "****答案是" + output_answer + "<br />";
+                    let obj = document.getElementById('score');
+                    obj.innerHTML = parseInt(obj.innerHTML) - 2;
+                    document.getElementById('yes').style.display = 'none';
+                    document.getElementById('just_so_so').style.display = 'none';
+                    document.getElementById('no').style.display = 'block';
+                }
+                var div = document.getElementById('history');//使得div添加内容时,下滑到底
+                div.scrollTop = div.scrollHeight;
+                let score_now = parseInt(document.getElementById('score').innerHTML);
+                var images = document.getElementsByClassName('img');
+                for (let i = 0; i < images.length; i++)
+                    images[i].style.display = 'none';
+                if (score_now < 0)
+                    document.getElementById('img1').style.display = 'block';
+                else if (score_now >= 20)
+                    document.getElementById('img3').style.display = 'block';
+                else if (score_now >= 10)
+                    document.getElementById('img2').style.display = 'block';
+                if (score_now>=0)
+                    document.getElementById('battery').style.boxShadow = 'inset ' + score_now / 20 * 150 + 'px 0px 0px #00ff0a';
+                else
+                    document.getElementById('battery').style.boxShadow = 'inset ' + score_now / 20 * 150 + 'px 0px 0px red';
+            }
+            function show_answer() {
+                if (!can_tip)
+                    return;
+                can_tip = 0;
+                let output_answer = Math.round(answer * 10000) / 10000;
+                document.getElementById('tip_show_answer').innerHTML += output_answer;
+            }
+        </script>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/04/30/hello-world/" class="article-date">
-  <time datetime="2020-04-30T13:37:52.318Z" itemprop="datePublished">2020-04-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/30/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/30/hello-world/" data-id="ck9mtig3q0000ps777epd1qc2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/04/30/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
 </body>
 </html>
