@@ -281,12 +281,14 @@
                     XX.innerHTML += number1 + " " + operator + " " + number2 + " = " + input_answer + " ";
                 if (test === "") {
                     is_judge = 0;
+                    can_produce_new_question = 0; // 没有答题不能生成新题目
                     XX.innerHTML += "没有答题哦<br />";
                     document.getElementById('yes').style.display = 'none';
                     document.getElementById('just_so_so').style.display = 'none';
                     document.getElementById('no').style.display = 'none';
                 } else if (isNaN(input_answer)) {
                     is_judge = 0;
+                    can_produce_new_question = 0; // 没有答题不能生成新题目
                     XX.innerHTML += "输入格式错误哦<br />";
                 }
                 else if (input_answer == output_answer) {
