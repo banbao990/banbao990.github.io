@@ -153,11 +153,12 @@
         <div class="introduction">
             介绍<br />
             1.点击按钮实现各自功能<br />
-            2.每个整数都在1-10之间<br />
+            2.每个整数都在1-100之间<br />
             3.答对+2,基本正确+1,答错-2<br />
-            4.分数:10分良好,20分优秀<br />
-            5.无限小数保留4位小数<br />
-            6.enter:判分;shift:出题;ctrl:提示<br />
+            4.提示-1<br />
+            5.分数:30分良好,50分优秀<br />
+            6.无限小数保留4位小数<br />
+            7.enter:判分;shift:出题;ctrl:提示<br />
         </div>
         <div class="tip">题目:</div>
         <div id="question" class="question">question</div>
@@ -329,9 +330,9 @@
                     images[i].style.display = 'none';
                 if (score_now < 0)
                     document.getElementById('img1').style.display = 'block';
-                else if (score_now >= 20)
+                else if (score_now >= 50)
                     document.getElementById('img3').style.display = 'block';
-                else if (score_now >= 10)
+                else if (score_now >= 30)
                     document.getElementById('img2').style.display = 'block';
                 if (score_now>=0)
                     document.getElementById('battery').style.boxShadow = 'inset ' + score_now / 20 * 150 + 'px 0px 0px #00ff0a';
