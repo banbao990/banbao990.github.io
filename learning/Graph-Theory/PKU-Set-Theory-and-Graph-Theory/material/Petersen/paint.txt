@@ -1,0 +1,10 @@
+0:ab
+1:de
+2:ac
+3:be
+4:cd
+5:ce
+6:bc
+7:bd
+8:ad
+9:ae
