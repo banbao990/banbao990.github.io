@@ -1,0 +1,249 @@
+/* user defined const value */
+:root {
+    --animation-interval: 1200ms;
+    --default-size: 48px;
+    --neg-default-size: -48px;
+    --double-size: 96px;
+    --neg-double-size: -96px;
+}
+
+/* base attributes */
+* {
+    text-decoration: none;
+    font-family: "Times New Roman", FangSong;
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-size: 20px;
+}
+
+#FEheader {
+    font-size: 40px;
+    height: 80px;
+    line-height: 80px;
+}
+
+.header {
+    text-align: center;
+    vertical-align: middle;
+    font-family: fangsong;
+    font-weight: bold;
+}
+
+#container {
+    margin: auto;
+    height: calc(2 * var(--default-size));
+    width: var(--default-size);
+}
+
+#waiting {
+    position: relative;
+    top: 25%;
+    height: 50%;
+    width: 100%;
+    background: url(../images/waiting/01.png) no-repeat 0 0;
+    visibility: visible;
+    background-size: cover;
+    animation-name: run;
+    animation-iteration-count: infinite;
+    animation-duration: var(--animation-interval);
+    animation-delay: 0;
+    animation-timing-function: steps(1, start);
+    /* steps(number, position)
+     * number: divide the animation into number segs
+     * position: start/end
+     *
+     * Example:state1(0%), state2(33%), state(66%), state4(100%)
+     * 0%-33%, 33%-66%, 66%-100%
+     * steps(1, start): state2, state2, state4
+     * steps(1, end): state1, state2, state3
+    */
+}
+
+@keyframes run {
+    0% {
+        background-position: 0 0;
+    }
+
+    25% {
+        background-position: 0 var(--neg-default-size);
+    }
+
+    50% {
+        background-position: 0 calc(2 * var(--neg-default-size));
+    }
+
+    75% {
+        background-position: 0 var(--neg-default-size);
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+@keyframes runHigher {
+    0% {
+        background-position: 0 0;
+    }
+
+    25% {
+        background-position: 0 calc(2 * var(--neg-default-size));
+    }
+
+    50% {
+        background-position: 0 calc(4 * var(--neg-default-size));
+    }
+
+    75% {
+        background-position: 0 calc(2 * var(--neg-default-size));
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+#container2 {
+    margin: auto;
+    height: calc(2 * var(--double-size));
+    width: var(--double-size);
+}
+
+#moving {
+    position: relative;
+    top: 25%;
+    height: 50%;
+    width: 100%;
+    background: url(../images/moving/02.png) no-repeat 0 0;
+    visibility: visible;
+    background-size: cover;
+    animation-name: movingHere;
+    animation-iteration-count: infinite;
+    animation-duration: var(--animation-interval);
+    animation-delay: 0;
+    animation-timing-function: steps(1, end);
+}
+
+@keyframes movingLeft {
+    0% {
+        background-position: 0 0;
+    }
+
+    25% {
+        background-position: 0 calc(1 * var(--neg-double-size));
+    }
+
+    50% {
+        background-position: 0 calc(2 * var(--neg-double-size));
+    }
+
+    75% {
+        background-position: 0 calc(3 * var(--neg-double-size));
+    }
+
+    100% {
+        background-position: 0 calc(4 * var(--neg-double-size));
+    }
+}
+
+@keyframes movingDown {
+    0% {
+        background-position: 0 calc(4 * var(--neg-double-size));
+    }
+
+    25% {
+        background-position: 0 calc(5 * var(--neg-double-size));
+    }
+
+    50% {
+        background-position: 0 calc(6 * var(--neg-double-size));
+    }
+
+    75% {
+        background-position: 0 calc(7 * var(--neg-double-size));
+    }
+
+    100% {
+        background-position: 0 calc(8 * var(--neg-double-size));
+    }
+}
+
+@keyframes movingUp {
+    0% {
+        background-position: 0 calc(8 * var(--neg-double-size));
+    }
+
+    25% {
+        background-position: 0 calc(9 * var(--neg-double-size));
+    }
+
+    50% {
+        background-position: 0 calc(10 * var(--neg-double-size));
+    }
+
+    75% {
+        background-position: 0 calc(11 * var(--neg-double-size));
+    }
+
+    100% {
+        background-position: 0 calc(12 * var(--neg-double-size));
+    }
+}
+
+@keyframes movingHere {
+    0% {
+        background-position: 0 calc(12 * var(--neg-double-size));
+    }
+
+    25% {
+        background-position: 0 calc(13 * var(--neg-double-size));
+    }
+
+    50% {
+        background-position: 0 calc(14 * var(--neg-double-size));
+    }
+
+    75% {
+        background-position: 0 calc(13 * var(--neg-double-size));
+    }
+
+    100% {
+        background-position: 0 calc(12 * var(--neg-double-size));
+    }
+}
+
+.chooser {
+    height: 50px;
+    margin: 10px auto 10px auto;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+}
+
+#tip {
+    background-color: #fff9f1;
+    width: 600px;
+    height: 100px;
+    text-align: center;
+    margin: auto;
+    line-height: 33px;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    * {
+        font-size: 15px;
+    }
+
+    #FEheader {
+        font-size: 20px;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    #tip {
+        width: 100%;
+        height: 60px;
+        line-height: 20px;
+        font-size: 16px;
+    }
+}
