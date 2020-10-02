@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>introduction</title>
+    <script src="../../js/jQuery.js"></script>
+    <link rel="stylesheet" href="../../import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/loading_animation_4.css" />
+    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="shortcut icon" href="../../image/icon/introduction_icon.jpg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+
+        .body_style {
+            background-image: url(../../image/introduction_bg.jpg);
+            background-repeat: no-repeat;
+            /* 背景图垂直、水平均居中 */
+            background-position: right center;
+            /* 当内容高度大于图片高度时,背景图像的位置相对于viewport固定 */
+            background-attachment: fixed;
+            /* 让背景图基于容器大小伸缩 */
+            background-size: cover;
+            /* 设置背景颜色,背景图加载过程中会显示背景色 */
+            background-color: #6c9fb0;
+        }
+
+        .out_frame {
+            margin: auto;
+            margin-top: 50px;
+            width: 80%;
+            height: 100%;
+            background-color: transparent;
+        }
+
+        .name {
+            height: auto;
+            width: 100%;
+            text-align: left;
+        }
+
+            .name > span {
+                font-size: 40px;
+                font-family: 'Segoe Script',STXingkai;
+            }
+
+                .name > span:first-child {
+                    padding-left: 50px;
+                }
+
+        .something {
+            width: 80%;
+            margin: auto;
+            margin-top: 10px;
+            height: auto;
+            min-height: 120px;
+            line-height: 1.5;
+        }
+        /*覆盖*/
+        .fa-border {
+            padding: 0.1em;
+            text-align: center;
+            border: solid .08em #eee;
+            border-radius: .1em;
+            height: 81.6px;
+            width: 81.6px;
+            vertical-align: middle;
+            line-height: 81.6px;
+        }
+    </style>
+</head>
+<body class="body_style">
+    <!--加载动画-->
+    <!-- COIDEA:demo START -->
+    <div id="ci-particles">
+        <canvas id="canvas"></canvas>
+        <h1 id="headline">陈绮贞</h1>
+    </div>
+    <!-- COIDEA:demo END -->
+    <!--导航栏-->
+    <div class="cheer">cheer</div>
+    <div class="nav" style="position:fixed;"></div>
+    <div class="nav" style="height:0;">
+        <div class="first content btn-4" id="introduction"><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="../performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="../album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="../life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="../some_fun/index.html" target="_blank"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="../latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../../index.html"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!--正式页面-->
+    <div class="out_frame">
+        <div class="name"><span>cheer</span>&nbsp;<span>陈绮贞</span></div>
+        <div class="something">
+            <i class="fa fa-leaf fa-3x pull-left fa-border"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;陈绮贞(Cheer),1975年6月6日(农历四月廿七)出生于中国台湾省台北市.民谣女歌手,作曲人,作词人,演员,毕业于政治大学.
+        </div>
+        <div class="something">
+            <i class="fa fa-child fa-3x pull-left fa-border"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;出生于台北市士林区,其母亲为钢琴老师,从小睡前是听邓丽君或是古典演奏曲.在敦化国小就读音乐班,主修钢琴,副修小号.后加入学校合唱团.高中就读台北市立景美女子高级中学.在学期间开始听摇滚乐,拥有第一把吉他,为学校乐队的独奏小号手.1993年,高中毕业,进入国立政治大学,就读哲学系,辅修新闻.1999年,自政大毕业.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;1995年,参加"木船民歌比赛",但在初赛时就被淘汰了.1996年,陈绮贞第二次参加"木船民歌比赛",获得了第一名,从此开始了音乐创作之路.1998年获得政大金旋奖第一名.
+        </div>
+        <div class="something">
+            <i class="fa fa-institution fa-3x pull-left fa-border"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;1998年,陈绮贞跟魔岩签约.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;2003年,陈绮贞自己成立"好小气"音乐工作室,发行了"after 17","sentimental skill","旅行的意义"等3张专辑.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;2006年,陈绮贞加入音乐伙伴锺成虎创立的添翼创越工作室.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;作为音乐才女,陈绮贞一直保持着精良的创作态度.平均2~3年才发一张专辑的她,决不愿自己是为了出专辑而唱歌,因为她自己想把自己的经历和故事唱给别人听,才会去创作.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;代表作品：《烟火》《太阳》《鱼》《流浪者之歌》...<br />
+        </div>
+    </div>
+    <!--nav的script-->
+    <script src="../../js/nav.js"></script>
+    <!--loading-->
+    <script src="../../js/loading_animation_4.js"></script>
+    <script>
+        /*loading隐去*/
+        $(function () {
+            setTimeout(function () { $("#ci-particles").fadeOut(10000); }, 5000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿.btn {
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    line-height: 45px;
+    margin: auto;
+    max-width: 160px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: 100%;
+    text-align: center;
+    top: calc(50% - 22.5px);
+}
+
+.btn-1 svg{
+    height:45px;
+    left:0;
+    position:absolute;
+    top:0;
+    width:100%;
+}
+
+.btn-1 rect{
+    fill:none;
+    stroke:#fff;
+    stroke-width:4;
+    stroke-dasharray:422,0;
+}
+
+.btn-1:hover{
+    background:rgba(255,51,45,0);
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.btn-1:hover rect{
+    stroke-width:5;
+    stroke-dasharray:15,310;
+    stroke-dashoffset:48;
+    transition:all 1.35s cubic-bezier(0.19,1,0.22,1);
+}
+
+.btn-2{
+    font-weight:500;
+}
+    .btn-2:hover {
+        font-weight: 900;
+    }
+.btn-2:after,
+.btn-2:before{
+    border-bottom:2px solid rgba(225,225,225,0);
+    content:"";
+    display:block;
+    margin:0 auto;
+    transition:all 280ms ease-in-out;
+    width:0;
+}
+
+    .btn-2:hover:after,
+    .btn-2:hover:before {
+        border-color:#fff;
+        transition:all 350ms ease-in-out;
+        width:100%;
+    }
+
+.btn-3{
+    /*border:1px solid;*/
+    overflow:hidden;
+    position:relative;
+}
+
+.btn-3 span{
+    z-index:20;
+}
+
+    .btn-3:after {
+        background: #fff;
+        content: "";
+        height: 155px;
+        left: -100px;
+        opacity: 0.1;
+        position: absolute;
+        top: -50px;
+        transition: all 1000ms cubic-bezier(0.19,1,0.22,1);
+        width: 50px;
+        z-index: 10;
+        transform: skewX(30deg);/*效果更好*/
+    }
+
+.btn-3:hover:after {
+    left: 120%;
+    transition: all 1000ms cubic-bezier(0.19,1,0.22,1);
+}

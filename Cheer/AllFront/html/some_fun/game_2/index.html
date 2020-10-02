@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>翻转游戏</title>
+    <script src="../../../js/jQuery.js"></script>
+    <link rel="stylesheet" href="../../../import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../css/buttons.css" />
+    <link rel="stylesheet" href="../../../css/nav.css" />
+    <link rel="shortcut icon" href="../../../image/game_2/game_2_01.jpg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /*nav*/
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+        /*loading*/
+        .loading_frame {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            z-index: 10000;
+        }
+        /*gameField*/
+        .game_frame_backup {
+            z-index: 5;
+            background-color: aliceblue;
+        }
+
+            .game_frame_backup > .cube {
+                width: 23%;
+                height: 23%;
+                background-color: rgba(127, 255, 212, 0.33);
+                float: left;
+                margin: 5px;
+                background-size: 100% 100%;
+            }
+
+        .game_frame {
+            z-index: 8;
+            background-color: transparent;
+        }
+
+        .game_frame_backup, .game_frame {
+            min-width: 500px;
+            width: 500px;
+            height: 500px;
+            left: calc(50% - 250px);
+            position: absolute;
+            top: calc(50% - 250px);
+        }
+
+            .game_frame > .cube {
+                width: 23%;
+                height: 23%;
+                float: left;
+                margin: 5px;
+                background-size: 100% 100%;
+                transform: rotateY(180deg);
+                backface-visibility: hidden; /*翻转过来的时候不可见*/
+                transition: transform 1s ease;
+            }
+
+        .my_rotate {
+            transform: rotateY(0) !important;
+            transition: transform 1s ease;
+        }
+        /*win*/
+
+        #out {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(0, 0, 0,0.7);
+            display: none;
+            z-index: 100;
+            height: 100%;
+            width: 100%;
+        }
+
+        #mid {
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            height: 50%;
+            width: 50%;
+            border-radius: 25%;
+            background-color: rgb(163, 185, 162);
+            z-index: 110;
+        }
+
+        #in {
+            text-align: center;
+            position: relative;
+            height: 100%;
+            font-size: 50px;
+            z-index: 120;
+        }
+
+        #exit {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 30px;
+            width: 30px;
+            background-image: url(../../../image/exit.png);
+            background-size: 100% 100%;
+            z-index: 130;
+        }
+
+        .try_again {
+            cursor: default;
+            height: 50px;
+            width: 100px;
+            position: absolute;
+            background: rgba(255, 61, 0, 0.37);
+            left: calc(50% - 50px);
+            bottom: 10%;
+            z-index: 200;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 20%;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        /*back_to_last_html*/
+        #back_to_last_html {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 30px;
+            width: 50px;
+            text-align: center;
+            line-height: 30px;
+            background-color: rgba(2, 255, 255, 0.32);
+            color: #a3a3a3;
+            text-decoration: none;
+            border-radius: 20%;
+        }
+
+            #back_to_last_html > a {
+                color: black;
+            }
+    </style>
+</head>
+<body style="background-color:rgba(112, 128, 144, 0.25882352941176473);">
+    <!--back_to_last_html-->
+    <div id="back_to_last_html"><a href="../index.html">BACK</a></div>
+    <!--loading-->
+    <div class="loading_frame">
+        <div style="height:150px;width:150px;margin:auto;top:calc(50% - 75px);position:relative;">
+            <img src="../../../image/loading.gif" />
+        </div>
+    </div>
+    <!--nav-->
+    <div class="cheer">cheer</div>
+    <div class="nav" style="position:fixed;"></div>
+    <div class="nav" style="height:0;">
+        <div class="first content btn-4" id="introduction"><a href="../../introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="../../performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="../../album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="../../life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="../../some_fun/index.html"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="../../latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../../../index.html" target="_blank"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!--Game-->
+    <div class="game_frame">
+        <div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div>
+    </div>
+    <div class="game_frame_backup">
+        <div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div><div class="cube"></div>
+    </div>
+    <!--you_win-->
+    <div id="out">
+        <div id="mid">
+            <div class="try_again">再来一局</div>
+            <div id="exit"></div>
+            <div id="in">YOU WIN!</div>
+        </div>
+    </div>
+    <script>
+        //loading
+        $(function () {
+            $(".loading_frame").fadeOut(2000);//loading.gif
+            init();
+        });
+        //init
+        function init() {
+            let numbers = new Array(16);
+            //初始化
+            for (let i = 0; i < 8; ++i) {
+                numbers[2 * i] = numbers[2 * i + 1] = i;
+            }
+            //打乱顺序
+            for (let i = 0; i < 500; ++i) {
+                let r1 = Math.floor(Math.random() * 16);
+                let r2 = Math.floor(Math.random() * 16);
+                let temp = numbers[r1];
+                numbers[r1] = numbers[r2];
+                numbers[r2] = temp;
+            }
+            //设置背景图片
+            let img_path = "../../../image/game_2/game_2_";
+            let img_divs = $(".game_frame > .cube");
+            for (let i = 0; i < 16; ++i) {
+                let img_url = "url(" + img_path + "" + PrefixInteger(numbers[i], 2) + ".jpg)";
+                img_divs.eq(i).css("background-image", img_url);
+            }
+        }
+
+        //实现数字前面不够补0
+        function PrefixInteger(num, length) {
+            return (Array(length).join('0') + num).slice(-length);
+        }
+        /*获取鼠标位置*/
+
+
+        //x的值相对于文档的左边缘。y的值相对于文档的上边缘
+        //x,y是全局变量;
+        //hidden_divs_numbers用于记录已经隐藏了多少个,点击过快会出问题
+        var hidden_divs_numbers = 0;
+        $(document).click(function (e) {
+            //获取点击的位置坐标
+            let x = e.pageX;
+            let y = e.pageY;
+            let divs = $('.game_frame > .cube');//获取你想要的DIV
+            for (let i = 0; i < 16; ++i) {
+                let div = divs.eq(i);
+                let y1 = div.offset().top;  //div上面两个的点的y值
+                let y2 = y1 + div.height();//div下面两个点的y值
+                let x1 = div.offset().left;  //div左边两个的点的x值
+                let x2 = x1 + div.width();  //div右边两个点的x的值
+                if (x < x1 || x > x2 || y < y1 || y > y2) {
+                    continue;
+                }
+                else {
+                    //console.log(i);
+                    //如果已经隐藏,不响应点击
+                    if (divs.eq(i).css("visibility") === "hidden") {
+                        console.log("已经被隐藏");
+                        return;
+                    }
+                    divs.eq(i).addClass("my_rotate");
+                    let my_rotate_divs = $(".my_rotate");
+                    //已经翻转了两个
+                    if (my_rotate_divs.length === 2) {
+                        //获取index
+                        let index_1 = $('.game_frame > .cube').index(my_rotate_divs.eq(0));
+                        let index_2 = $('.game_frame > .cube').index(my_rotate_divs.eq(1));
+                        console.log(index_1 + " " + index_2);
+                        //如果背景图片相同,则fadeOut,而且game_frame对应的cube也要fadeOut
+                        if (my_rotate_divs.eq(0).css("background-image") === my_rotate_divs.eq(1).css("background-image")) {
+                            hidden_divs_numbers += 2;
+                            let back_divs = $('.game_frame_backup > .cube');
+                            setTimeout(function () {
+                                back_divs.eq(index_1).css("visibility", "hidden");
+                                back_divs.eq(index_2).css("visibility", "hidden");
+                                my_rotate_divs.fadeOut(1000, function () {
+                                    my_rotate_divs.removeClass("my_rotate");
+                                    my_rotate_divs.css("visibility", "hidden").show();//也可以通过修改opacity的值实现
+                                });
+                            }, 1000);
+                        }
+                        //背景图片不同的话，只是都翻转回去
+                        else {
+                            setTimeout(function () { my_rotate_divs.removeClass("my_rotate") }, 1000);
+                        }
+                    }
+                    //判断是否全部都隐藏了,2*1000ms停留是为了前面执行完毕
+                    if (hidden_divs_numbers == 16) {
+                        setTimeout(function () { show_you_win(); }, 2000);
+                    }
+                    return;//没有必要在继续循环了
+                };
+            }
+        });
+        //游戏胜利
+        function show_you_win() {
+            console.log("YOU WIN");
+            $("#out").fadeIn(300);
+            $("#mid").css("lineHeight", $("#mid").css("height"));
+        }
+        //exit
+        $("#exit").on("click", function () { $("#out").fadeOut(300); });
+        //再来一局
+        $(".try_again").on("click", function () {
+            location.reload();
+        });
+    </script>
+    <script src="../../../js/nav.js"></script>
+</body>
+</html>

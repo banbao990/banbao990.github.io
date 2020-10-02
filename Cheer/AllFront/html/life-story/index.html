@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>life-story</title>
+    <script src="../../js/jQuery.js"></script>
+    <link rel="stylesheet" href="../../import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="shortcut icon" href="../../image/icon/life-story_icon.jpeg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--now_page_nav-->
+    <link rel="stylesheet" type="text/css" href="../../css/style2_use.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/demo_use.css" />
+    <script type="text/javascript" src="../../js/modernizr.custom.79639.js"></script>
+    <!--now_page_nav-->
+    <style>
+        a {
+            color: inherit;
+            font-size: inherit;
+        }
+
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+
+        .content {
+            box-sizing: content-box;
+        }
+        /*body*/
+        .body_style {
+            background-image: url(../../image/life-story_bg.jpg);
+            background-repeat: no-repeat;
+            /* 背景图垂直、水平均居中 */
+            background-position: left top;
+            /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+            background-attachment: fixed;
+            /* 让背景图基于容器大小伸缩 */
+            background-size: cover;
+            /* 设置背景颜色，背景图加载过程中会显示背景色 */
+            background-color: black;
+        }
+        /*now_page_nav*/
+        #sb-container h4 > span {
+            font-size: 16px;
+        }
+
+        .profile_add {
+            margin: 15px auto;
+            width: 40px;
+            font-size: 33px;
+            text-align: center;
+        }
+        /*main*/
+        #show_cheer_life {
+            position: absolute;
+            top: 900px;
+            margin-top: 10px;
+            width: 90%;
+            height: auto;
+            background-color: transparent;
+            left: 10%;
+        }
+
+        .show_cheer_life_inbox {
+            width: 90%;
+            margin: 10px 5%;
+        }
+
+            .show_cheer_life_inbox > .show_cheer_life_inbox_img {
+                position: relative;
+                left: 50%;
+                width: 50%;
+                background-size: 100% 100%;
+                min-width: 500px;
+            }
+
+            .show_cheer_life_inbox > .show_cheer_life_inbox_text {
+                padding-left: 50%;
+                text-align: left;
+                font-family: Georgia, STSong, "Times New Roman", 新細明體, Times, serif;
+                font-size: 15px;
+                margin: 5px 0 20px 0;
+                padding-bottom: 10px;
+            }
+        /*响应式布局*/
+
+        @media screen and (max-width: 1000px) {
+            #show_cheer_life {
+                position: relative;
+                width: 90%;
+                margin: 10px auto;
+                left: 0px;
+                min-width: 555px; /* 500/0.9 */
+                top: 900px;
+                background-color: transparent;
+            }
+
+            .show_cheer_life_inbox {
+                width: 90%;
+                margin: 10px auto;
+                background-color: rgba(0, 0, 0, 0.7);
+                color: white;
+                animation: all 1s ease;
+            }
+
+                .show_cheer_life_inbox > .show_cheer_life_inbox_img {
+                    position: relative;
+                    margin: auto;
+                    left: 0px;
+                    width: 500px;
+                    background-size: 100% 100%;
+                }
+
+                .show_cheer_life_inbox > .show_cheer_life_inbox_text {
+                    padding-left: calc(50% - 250px);
+                    text-align: left;
+                    font-family: Georgia, STSong, "Times New Roman", 新細明體, Times, serif;
+                    font-size: 15px;
+                    margin: 5px 0 20px 0;
+                }
+        }
+
+        @media screen and (max-width: 900px) {
+            /*now_page_nav*/
+            #sb-container {
+                left: calc(50% - 75px);
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            /*now_page_nav*/
+            /*居中trick*/
+            #sb-container {
+                right: calc(75px - 50%);
+            }
+        }
+        /*toTop*/
+        .back {
+            height: 20px;
+            width: 20px;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="body_style">
+    <!--loading-->
+    <!--nav-->
+    <div class="cheer">cheer</div>
+    <div class="nav" style="position:fixed;"></div>
+    <div class="nav" style="height:0;">
+        <div class="first content btn-4" id="introduction"><a href="../introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="../performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="../album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="#"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="../some_fun/index.html" target="_blank"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="../latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../../index.html"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!--now_page_nav-->
+    <div id="sb-container" class="sb-container">
+        <div>
+            <span class="sb-icon icon-cog"></span>
+            <h4><span name="17">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-flight"></span>
+            <h4><span name="16">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-eye"></span>
+            <h4><span name="9">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-install"></span>
+            <h4><span name="8">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-bag"></span>
+            <h4><span name="7">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-globe"></span>
+            <h4><span name="6">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-picture"></span>
+            <h4><span name="5">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-video"></span>
+            <h4><span name="4">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-download"></span>
+            <h4><span name="3">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-mobile"></span>
+            <h4><span name="2">SEE</span></h4>
+        </div>
+        <div>
+            <span class="sb-icon icon-camera"></span>
+            <h4><span name="1">SEE</span></h4>
+        </div>
+        <div>
+            <h4><span>Profile</span></h4>
+            <span class="sb-toggle">Click to open/close</span>
+            <section class="profile_add">夏天的30種玩法</section>
+        </div>
+    </div>
+    <!--main-->
+    <div id="show_cheer_life">
+        <div class="show_cheer_life_inbox" id="1">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">夏天的30種玩法之1</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="2">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">夏天的30種玩法之2</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="3">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">把握每一次歡笑的可能-夏天的30種玩法之3</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="4">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">看見美麗的人，為他們拍一張美麗的照片-夏天的30種玩法之4</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="5">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">乘坐接近午夜的地鐵-夏天的30種玩法之5</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="6">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">找一片天空，虔誠地躺在他腳下-夏天的30種玩法之6</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="7">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">在會議與會議之間，窺探一座城市-夏天的30種玩法之7</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="8">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">在熱奶茶與菠蘿油之間，窺探香港-夏天的30種玩法之8</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="9">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">在工作時摒除玩樂的念頭-夏天的30種玩法之9</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="16">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">從早到晚聽見快門聲-夏天的30種玩法之16</div>
+        </div>
+        <div class="show_cheer_life_inbox" id="17">
+            <div class="show_cheer_life_inbox_img"></div>
+            <div class="show_cheer_life_inbox_text">在海鮮餐廳的廚房也可以-夏天的30種玩法之17</div>
+        </div>
+    </div>
+    <!--toTop-->
+    <div class="back"><i class="fa fa-arrow-up fa-2x"></i></div>
+    <script src="../../js/nav.js"></script>
+    <!--now_page_nav-->
+    <script type="text/javascript" src="../../js/jquery.swatchbook.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#sb-container').swatchbook({
+                angleInc: -10,
+                proximity: -45,
+                neighbor: -4,
+                closeIdx: 11
+            });
+        });
+        /*保证nav距离右边的最小距离大于250px*/
+        function right_limit() {
+            let div = $("#sb-container");
+            if (parseInt(div.css("right")) < 260)
+                div.css("right", 260);
+        }
+        /*加载图片*/
+        function image_set_in() {
+            let divs = $("#show_cheer_life > .show_cheer_life_inbox");
+            let left = "url('../../image/life-story/";
+            let right = ".jpeg')";
+            for (let i = 0; i < divs.length; ++i) {
+                divs.eq(i).children(".show_cheer_life_inbox_img").css("background-image", String(left + (i + 1) + right));
+            }
+        }
+        /*保证图片长宽高与原始相同*/
+        function image_harmony() {
+            let divs = $("#show_cheer_life > .show_cheer_life_inbox");
+            let left = '../../image/life-story/';
+            let right = '.jpeg';
+            for (let i = 0; i < divs.length; ++i) {
+                /*取得url*/
+                let img_url = left + (i + 1) + right;
+                let img = new Image();
+                img.src = img_url
+                // 加载完成执行
+                img.onload = function () {
+                    let _width = parseInt(img.width);
+                    let _height = parseInt(img.height);
+                    let div = divs.eq(i).children(".show_cheer_life_inbox_img");
+                    let now_width = parseInt(div.css("width"));
+                    let height_to_be = now_width / _width * _height;
+                    div.css("height", height_to_be);
+                }
+            }
+        }
+        /*窗口大小变化事件*/
+        $(window).on("resize", function () {
+            right_limit();
+            image_harmony();
+        });
+        /*初始化时触发*/
+        $(function () {
+            right_limit();
+            image_set_in();
+            image_harmony();
+        });
+
+        /*触发滚动的事件*/
+        $(function () {
+            /*toTop*/
+            $(".back").on("click", function () { toDes(0); })
+            /*toDes*/
+            $("#sb-container > div > h4 > span").on("click", function () {
+                let _name = $(this).attr("name");
+                let _id = "#" + _name;
+                let des = parseInt($(_id).offset().top);
+                toDes(des - 200);
+            });
+        });
+        /*滚动到目的地*/
+        function toDes(des) {
+            var gotoTop = function () {
+                var currentPosition = document.documentElement.scrollTop || document.body.scrollTop;
+                currentPosition += currentPosition > des ? -10 : 10;
+                if (Math.abs(currentPosition - des) > 10) {
+                    window.scrollTo(0, currentPosition);
+                }
+                else {
+                    window.scrollTo(0, des);
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+            var timer = setInterval(gotoTop, 1);
+        }
+    </script>
+</body>
+</html>

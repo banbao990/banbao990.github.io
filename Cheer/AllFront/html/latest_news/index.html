@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>latest_news</title>
+    <script src="../../js/jQuery.js"></script>
+    <script src="../../js/jquery.easing.js"></script>
+    <script src="../../js/jquery.mockjax.js"></script>
+    <link rel="stylesheet" href="../../import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css" />
+    <link rel="shortcut icon" href="../../image/album/album_11.jpg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+
+        .body_style {
+            background-image: url(../../image/latest_news_bg.jpg);
+            background-repeat: no-repeat;
+            /* 背景图垂直、水平均居中 */
+            background-position: left center;
+            /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+            background-attachment: fixed;
+            /* 让背景图基于容器大小伸缩 */
+            background-size: cover;
+            /* 设置背景颜色，背景图加载过程中会显示背景色 */
+            background-color: black;
+        }
+
+        /*swiper*/
+        .swiper-container {
+            /* width: 100%; */
+            /* height: 100%; */
+            width: 600px;
+            position: absolute;
+            top: 100px;
+            right: 10%;
+            height: 500px;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #000;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+            .swiper-slide > .swiper_img {
+                height: 250px;
+                width: 500px;
+                position: absolute;
+                left: calc(50% - 260px);
+                top: 110px;
+                margin: 10px;
+            }
+
+                .swiper-slide > .swiper_img > img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+            .swiper-slide > .swiper_text {
+                position: absolute;
+                top: 400px;
+                width: 500px;
+                color: white;
+            }
+
+        .swiper-pagination-bullet {
+            background-color: #fff;
+        }
+
+        .latest_news_new {
+            position: absolute;
+            height: 100px;
+            width: 500px;
+            right: calc(10% + 50px);
+            z-index: 9;
+            top: 100px;
+        }
+
+            .latest_news_new > .latest_news_new_direction {
+                position: absolute;
+                height: 40px;
+                width: 35px;
+                top: 30px;
+                color: rgb(146, 134, 134);
+            }
+
+            .latest_news_new > .latest_news_new_content {
+                width: 0px;
+                overflow: hidden;
+                height: 100px;
+                background-color: rgba(255, 255, 255, 0.68);
+                position: relative;
+                left: 40px;
+                line-height: 33px;
+                border-radius: 24px/35px;
+                box-shadow: 0px 0px 20px 1px rgba(255, 0, 0, 0.541176470588235) inset;
+            }
+
+                .latest_news_new > .latest_news_new_content > .latest_news_new_content_inner {
+                    width: 420px;
+                    height: 100px;
+                    margin: 0px 20px;
+                    text-align: center;
+                }
+
+        #hot {
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            color: red;
+        }
+        /*响应式布局*/
+        @media screen and (max-width: 600px) {
+            .swiper-container {
+                width: 100%;
+                /*height: 100%;*/
+                min-width: 500px;
+                left: 0px;
+                right: 0px;
+                top: 100px;
+            }
+
+            .latest_news_new {
+                position: absolute;
+                min-width: 500px;
+                left: 0px;
+                right: 0px;
+                top: 100px;
+                width: 100%;
+                padding-left: calc(50% - 250px);
+                z-index: 9;
+            }
+        }
+        /*loading*/
+        #page-loading {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #000 center center no-repeat;
+            z-index: 10000;
+        }
+
+        #loading_frame {
+            margin: auto;
+            height: 160px;
+            width: 30px;
+            position: relative;
+            top: calc(50% - 80px);
+        }
+
+        #loading_ball {
+            position: relative;
+            margin: auto;
+            border-radius: 50%;
+            background-color: pink;
+            height: 25px;
+            width: 25px;
+            top: 0px;
+            animation: bounce 0.5s;
+            animation-direction: alternate;
+            animation-timing-function: cubic-bezier(0.5,0.05,1,0.5);
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translate3d(0, 0, 0);
+            }
+
+            to {
+                transform: translate3d(0, 140px, 0);
+            }
+        }
+    </style>
+</head>
+<body class="body_style">
+    <!--loading!-->
+    <div id="page-loading">
+        <div class="ball"></div>
+        <div id="loading_frame">
+            <div id="loading_ball"></div>
+        </div>
+    </div>
+    <script>
+        /*loading*/
+        $(function () {
+            setTimeout(function () {
+                $("#page-loading").fadeOut(1000)
+            }, 2000);
+        });
+    </script>
+    <!--nav-->
+    <div class="cheer">cheer</div>
+    <div class="nav" style="position:fixed;"></div>
+    <div class="nav" style="height:0;">
+        <div class="first content btn-4" id="introduction"><a href="../introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="../performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="../album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="../life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="../some_fun/index.html" target="_blank"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="#"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../../index.html"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!--main-->
+    <!--swiper-->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="swiper_img"><img src="../../image/latest_news/20191123.jpg" alt="20191123" /></div>
+                <div class="swiper_text">
+                    &nbsp;&nbsp;&nbsp;&nbsp;2019年11月23日,"房间里的音乐会"将来到伦敦站<br />
+                    The&nbsp;Lighthouse&nbsp;Theatre
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="swiper_img"><img src="../../image/latest_news/20190527.jpg" alt="20190527" /></div>
+                <div class="swiper_text">2019年05月26日,杭州钱江世纪公园<br />百草味氧气音乐节</div>
+            </div>
+            <div class="swiper-slide">
+                <div class="swiper_img"><img src="../../image/latest_news/20190513.jpg" alt="20190513" /></div>
+                <div class="swiper_text">2019年05月13日<br />"cheer&nbsp;20&nbsp;漫漫长夜"演唱会,成都场</div>
+            </div>
+            <div class="swiper-slide">
+                <div class="swiper_img"><img src="../../image/latest_news/20190430.jpg" alt="20190430" /></div>
+                <div class="swiper_text">2019年04月30日,陈绮贞现场演出<br />女巫店(台北市新生南路三段56巷7號1樓)</div>
+            </div>
+            <div class="swiper-slide">
+                <div class="swiper_img"><img src="../../image/latest_news/20190421.jpg" alt="20190421" /></div>
+                <div class="swiper_text">2019年04月21日,"沙发海"专辑签售会,山海站</div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="swiper_img"><img src="../../image/latest_news/20190311.jpg" alt="20190311" /></div>
+                <div class="swiper_text">2019年03月11日<br />"沙发海"专辑中的"华生"MV首播</div>
+            </div>
+            <div class="swiper-slide">
+                <div class="swiper_img"><img src="../../image/latest_news/20180729.jpg" alt="20180729" /></div>
+                <div class="swiper_text">2018年7月29日<br />五月天演唱会上,与五月天合唱"私奔到月球"</div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!--latest_news-->
+    <div class="latest_news_new">
+        <div id="hot">HOT!</div>
+        <div class="latest_news_new_direction"><i id="i_left_or_right" class="fa fa-chevron-circle-right fa-2x"></i></div>
+        <div id="latest_news_new_content" class="latest_news_new_content">
+            <div class="latest_news_new_content_inner" id="latest_news_new_content_inner"><br />LOADING...<br /></div>
+        </div>
+    </div>
+    <!--end-->
+    <script>
+        //mock
+        //jquery版本太高会爆炸
+        $(function () {
+            let mocked = true;
+            if (mocked) {
+                $.mockjax({
+                    url: "https://jhj.com",
+                    contentType: "application/json",
+                    responseText: {
+                        news: "「漫漫长夜 Cheer 20」演唱会<br />2019-06-22北京站<br />华熙LIVE凯迪拉克中心(原五棵松体育馆)",
+                        date: "20190528"
+                    }
+                });
+            }
+            $.get("https://jhj.com", function (data) {
+                $("#latest_news_new_content_inner").html(data.news);
+                console.log(data.news);
+                console.log(data.date);
+            });
+        });
+        //点击事件
+        $(".latest_news_new_direction").on("click", function () {
+            let now_width = parseInt($("#latest_news_new_content").css("width"));
+            console.log(now_width);
+            if (now_width === 0) {
+                $("#latest_news_new_content").animate({ width: 460 }, 1000, "easeInOutQuint", function () {
+                    $("#i_left_or_right").removeClass("fa-chevron-circle-right")
+                        .addClass("fa-chevron-circle-left");
+                });
+            }
+            else {
+                $("#latest_news_new_content").animate({ width: 0 }, 1000, "easeInOutQuint", function () {
+                    $("#i_left_or_right").removeClass("fa-chevron-circle-left")
+                        .addClass("fa-chevron-circle-right");
+                });
+            }
+        });
+    </script>
+    <script>
+        //nav -> white
+        $(function () {
+            $(".cheer").css("color", "white");
+        });
+        //nav
+        $(".cheer").on("click", function () {
+            let boxWidth = parseInt($(".nav").css("width"));
+            let nowLeft = parseInt($(".nav").css("left"));
+            //console.log(boxWidth + " " + nowLeft);
+            if (nowLeft != 0)
+                $(".nav").animate({ left: 0 });
+            else
+                $(".nav").animate({ left: -boxWidth });
+        })
+    </script>
+    <!--swiper is-->
+    <script src="../../js/swiper.jquery.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        let swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            paginationClickable: true,
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: 3000,
+            autoplayDisableOnInteraction: false
+        });
+    </script>
+</body>
+</html>

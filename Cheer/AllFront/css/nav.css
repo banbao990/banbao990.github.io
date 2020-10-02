@@ -1,0 +1,80 @@
+﻿.nav {
+    position: absolute;
+    height: 700px;
+    width: 300px;
+    left: 20%;
+    top: 30px;
+    background: rgba(96, 64, 73, 0.5411764705882353);
+    z-index: 10; /*设置高度*/
+}
+
+.cheer {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: none;
+    height: 50px;
+    width: 100px;
+    z-index: 100; /*设置高度*/
+}
+
+.content {
+    height: 90px;
+    width: calc(100% - 33px);
+    margin-bottom: 5px;
+    text-align: left;
+    padding-left: 33px;
+    line-height: 90px;
+    cursor: default;
+    transition: background-color 1s ease-in-out;
+}
+
+    .content > a {
+        font-size: 30px;
+        color: rgb(152, 138, 138);
+    }
+
+    .content:hover {
+        background-color: rgb(125, 84, 84);
+        transition: background-color 1s ease-in-out;
+    }
+
+.first {
+    margin-top: 10px;
+}
+
+#introduction:hover {
+}
+
+.btn-4 {
+    font-weight: 500;
+}
+
+    .btn-4:hover {
+        font-weight: 900;
+    }
+
+    .btn-4:after,
+    .btn-4:before {
+        border-bottom: 2px solid rgba(225,225,225,0);
+        content: "";
+        display: block;
+        margin: 0 auto;
+        transition: all 280ms ease-in-out;
+        width: 0;
+        position: relative;
+        left: -33px; /*解决padding问题*/
+    }
+
+    .btn-4:after {
+        top: -5px;
+    }
+
+    .btn-4:hover:after,
+    .btn-4:hover:before {
+        border-color: #fff;
+        transition: all 350ms ease-in-out;
+        width: calc(100% + 33px);
+        position: relative;
+        left: -33px; /*解决padding问题*/
+    }

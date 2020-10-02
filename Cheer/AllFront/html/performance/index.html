@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>performance</title>
+    <script src="../../js/jQuery.js"></script>
+    <link rel="stylesheet" href="../../import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/loading_animation_2.css" />
+    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="shortcut icon" href="../../image/icon/performance_icon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+            color: white;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+        /*.body_style {
+            background-image: url(../../image/performance_bg.jpg);
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-attachment: fixed;
+            background-size: cover;
+            background-color: #6c9fb0;
+        }*/
+        /*swiper*/
+        html, body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        /*覆盖*/
+        .swiper-pagination-bullet {
+            background-color: #fff;
+            margin: 15px 0;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #007aff;
+        }
+
+        .swiper-container-vertical > .swiper-pagination-bullets .swiper-pagination-bullet {
+            margin: 20px 0;
+        }
+        /*end*/
+        .swiper-wrapper > .swiper-slide {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-color: #6c9fb0;
+        }
+
+            .swiper-wrapper > .swiper-slide > div {
+                position: absolute;
+            }
+
+        .swiper-wrapper span {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .swiper-wrapper li {
+            list-style: none;
+            text-align: left;
+        }
+
+        .swiper-wrapper > .swiper-slide:nth-child(1) {
+            background-image: url(../../image/performance/2005.png);
+            /*background-image: url(../../image/performance/2005_2.jpg);*/
+            /*2005年的照片太难找了GG*/
+        }
+
+        #year_2005 {
+            color: white;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .swiper-wrapper > .swiper-slide:nth-child(7) {
+            background-image: url(../../image/performance/2019_2.jpg);
+        }
+
+        #year_2019_2 {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            color: white;
+        }
+
+        .swiper-wrapper > .swiper-slide:nth-child(6) {
+            background-image: url(../../image/performance/2018_2.jpg);
+        }
+
+        #year_2018_2 {
+            bottom: 20px;
+            left: 50px;
+            color: white;
+        }
+
+            #year_2018_2 > span:nth-child(2) {
+                position: absolute;
+                left: 0;
+                top: 0px;
+                width: 48px;
+                line-height: 27px;
+            }
+
+            #year_2018_2 ul {
+                padding-left: 60px;
+            }
+
+            #year_2018_2 li {
+                line-height: 40px;
+            }
+
+        .swiper-wrapper > .swiper-slide:nth-child(5) {
+            background-image: url(../../image/performance/2016_2.jpg);
+            background-position: center top;
+        }
+
+        #year_2016_2 {
+            top: 30px;
+            right: 30px;
+            color: white;
+        }
+
+            #year_2016_2 span {
+                transform: rotate(45deg);
+                transform: rotate(47deg);
+                position: absolute;
+                width: 200px;
+                right: 27px;
+                top: 32px;
+            }
+
+            #year_2016_2 li {
+                position: relative;
+                right: 40px;
+                top: 10px;
+            }
+
+        .swiper-wrapper > .swiper-slide:nth-child(4) {
+            background-image: url(../../image/performance/2015_2.jpg);
+            background-position: center bottom;
+        }
+
+        #year_2015_2 {
+            color: white;
+            left: 79px;
+        }
+
+            #year_2015_2 li {
+                padding-left: 20px;
+            }
+
+        .swiper-wrapper > .swiper-slide:nth-child(3) {
+            background-image: url(../../image/performance/2010.jpg);
+            background-position: right bottom;
+        }
+
+        #year_2010 {
+            color: white;
+            left: 10px;
+            bottom: 10px;
+        }
+
+            #year_2010 li {
+                padding-left: 20px;
+            }
+
+        .swiper-wrapper > .swiper-slide:nth-child(2) {
+            background-image: url(../../image/performance/2009.jpg);
+            background-position: center center;
+        }
+
+        #year_2009 {
+            color: white;
+            position: absolute;
+            top: 44px;
+            right: 40px;
+        }
+    </style>
+</head>
+<body style="background-color:black;">
+    <!--加载动画-->
+    <div class="loading_frame">
+        <div id="loading_this_page" class="loading_2">
+            <div class="face">
+                <div class="circle"></div>
+            </div>
+            <div class="face">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+    <div class="cheer">cheer</div>
+    <div class="nav" style="position:fixed;"></div>
+    <div class="nav" style="height:0;">
+        <div class="first content btn-4" id="introduction"><a href="../introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="#"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="../album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="../life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="../some_fun/index.html" target="_blank"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="../latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../../index.html"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!-- Swiper -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div id="year_2005"><span>2005年<br />「花的姿態」臺北演唱會</span></div>
+            </div>
+            <div class="swiper-slide">
+                <div id="year_2009">
+                    <span>2009<br />「太陽」巡迴演唱會</span>
+                    <ul>
+                        <li>2009.01.10 ＠ 台北小巨蛋</li>
+                        <li>2009.01.11 ＠ 台北小巨蛋(加場)</li>
+                        <li>2009.02.21 ＠ 香港</li>
+                        <li>2009.03.20 ＠ 上海(加場)</li>
+                        <li>2009.03.21 ＠ 上海</li>
+                        <li>2009.04.04 ＠ 新加坡</li>
+                        <li>2009.06.06 ＠ 杭州</li>
+                        <li>2009.08.08 ＠ 南京</li>
+                        <li>2009.08.30 ＠ 廣州</li>
+                        <li>2009.11.07 ＠ 北京</li>
+                        <li>2009.11.14 ＠ 成都</li>
+                        <li>2009.11.28 ＠ 高雄巨蛋</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div id="year_2010">
+                    <span>2010-2011<br />夏季練習曲巡迴演唱會 A piece of summer II</span>
+                    <ul>
+                        <li>2010.07.30-08.02 ＠ 台大綜合體育館</li>
+                        <li>2010.08.28 ＠ 台南成大體育館</li>
+                        <li>2010.09.04 ＠ 廣州體育館</li>
+                        <li>2010.09.12 ＠ 台中惠蓀堂</li>
+                        <li>2010.09.18 ＠ 北京工人體育館</li>
+                        <li>2010.10.15-17 ＠ 香港九龍灣匯星</li>
+                        <li>2010.10.30 ＠ 武漢洪山體育館</li>
+                        <li>2010.11.13 ＠ 新加坡The MAX Pavilion</li>
+                        <li>2010.11.20 ＠ 廈門嘉庚体育館</li>
+                        <li>2011.03.11 ＠ 墨爾本站</li>
+                        <li>2011.05.14 ＠ 上海站</li>
+                        <li>2011.05.21 ＠ 澳門站</li>
+                        <li>2011.09.17 ＠ 台北站</li>
+                        <li>2011.09.24 ＠ 杭州站</li>
+                        <li>2011.10.01 ＠ 高雄站</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div id="year_2015_2">
+                    <span>2013-2015<br />「時間的歌」巡迴演唱會</span>
+                    <ul>
+                        <li>2013.11.29-30 ＠ 台北站</li>
+                        <li>2013.12.07-08 ＠ 台北加演場</li>
+                        <li>2013.12.14 ＠ 上海站</li>
+                        <li>2013.12.28 ＠ 武漢站</li>
+                        <li>2014.01.04 ＠ 深圳站</li>
+                        <li>2014.02.22 ＠ 新加坡站</li>
+                        <li>2014.03.07-08 ＠ 香港站</li>
+                        <li>2014.03.15 ＠ 北京站</li>
+                        <li>2014.04.19 ＠ 長沙站</li>
+                        <li>2014.04.26 ＠ 廈門站</li>
+                        <li>2014.05.24 ＠ 杭州站</li>
+                        <li>2014.06.21 ＠ 天津站</li>
+                        <li>2014.09.13 ＠ 西安站(因休養延期)</li>
+                        <li>2014.09.20 ＠ 廣州站(因休養延期)</li>
+                        <li>2014.11.08 ＠ 上海站(加演場)</li>
+                        <li>2014.11.22 ＠ 西安站</li>
+                        <li>2014.12.20 ＠ 高雄站</li>
+                        <li>2015.01.17 ＠ 廣州站</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div id="year_2016_2">
+                    <span>2016-2017<br />房間裡的音樂會 巡迴演唱會</span>
+                    <ul>
+                        <li>2016.06.25 武漢</li>
+                        <li>2016.07.02 重慶</li>
+                        <li>2016.07.16 南京</li>
+                        <li>2016.07.30 澳門</li>
+                        <li>2016.08.27 長沙</li>
+                        <li>2016.09.09-10 北京</li>
+                        <li>2016.09.30 成都</li>
+                        <li>2016.10.15 杭州</li>
+                        <li>2016.10.29 昆明</li>
+                        <li>2016.11.05 西安</li>
+                        <li>2016.12.10 濟南</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div id="year_2018_2">
+                    <span>2018-2019</span>
+                    <span>房間裡的音樂會 巡迴演唱會</span>
+                    <ul>
+                        <li>2018.01.12-01.14 TICC臺北國際會議中心</li>
+                        <li>&nbsp;2018.04.07 新加坡</li>
+                        <li>&nbsp;&nbsp;2018.05.19 天津</li>
+                        <li>&nbsp;&nbsp;&nbsp;2018.09.15 廈門</li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;2018.10.20 合肥</li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019.03.09 蘇州</li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019.09.07 福州</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div id="year_2019_2">
+                    <span>2019年<br />漫漫長夜 Cheer20 巡迴演唱會</span>
+                    <ul>
+                        <li>2019.01.11-01.13 台北小巨蛋</li>
+                        <li>2019.03.23 深圳</li>
+                        <li>2019.04.19-04.20 上海</li>
+                        <li>2019.05.11 成都</li>
+                        <li>2019.05.18 武漢</li>
+                        <li>2019.06.22 北京</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- Swiper JS -->
+    <script src="../../js/swiper.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            direction: 'vertical',
+            slidesPerView: 1,
+            paginationClickable: true,
+            spaceBetween: 30,
+            mousewheelControl: true
+        });
+    </script>
+    <script>
+        /*init*/
+        $(function () {
+            let divs = $(".swiper-wrapper > .swiper-slide");
+            divs.eq(0).children("div").slideDown(1000);
+            divs.eq(0).siblings().children("div").slideUp(1000);
+        });
+        /*nav*/
+        $(function () {
+            $(".cheer").on("click", function () {
+                let boxWidth = parseInt($(".nav").css("width"));
+                let nowLeft = parseInt($(".nav").css("left"));
+                if (nowLeft != 0) {
+                    $(".nav").animate({ left: 0 });
+                }
+                else {
+                    $(".nav").animate({ left: -boxWidth });
+                }
+            });
+        });
+        /*加载界面隐去*/
+        $(function () {
+            $(".loading_frame").fadeOut(3000);
+        });
+        /*调节格式*/
+        $(function () {
+            let divs = $("#year_2016_2 > ul > li");
+            for (let i = 0; i < divs.length; ++i) {
+                divs.eq(i).css("padding-left", 30 * i);
+            }
+        });
+        /*滚动事件*/
+        var last = new Date().getMilliseconds() + new Date().getSeconds() * 1000;
+        $(window).on("mousewheel",
+            function () {
+                //处理时间间隔太短的情况
+                let now = new Date().getMilliseconds() + new Date().getSeconds() * 1000;
+                let interval = now - last;
+                last = now;
+                //300这个数据是测试出来的swiper的响应时间
+                if (interval <= 300)
+                    return;
+                //获取向上滚还是向下滚
+                let _e = window.event;
+                let _up = true;
+                if (_e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
+                    if (_e.wheelDelta < 0) { //当滑轮向下滚动时
+                        _up = false;
+                    }
+                } else if (_e.detail) {  //Firefox滑轮事件
+                    if (_e.detail < 0) { //当滑轮向下滚动时
+                        _up = false;
+                    }
+                }
+                //操作对象
+                let divs = $(".swiper-wrapper > .swiper-slide");
+                let _height = parseFloat(divs.eq(0).css("height"));
+                //最上面一行到顶时,不执行
+                if (_up && divs.eq(0).offset().top >= 0 && divs.eq(0).offset().top <= (_height - 100))//100是个估计,滚动的时候再滚动
+                    return;
+                //最下面一行到顶时,不执行
+                if ((!_up) && divs.eq(divs.length - 1).offset().top >= 0 && divs.eq(divs.length - 1).offset().top <= (_height - 100))
+                    return;
+                //下一个
+                let _next = _up ? -1 : 1;
+                let _now = 0;
+                for (let i = 0; i < divs.length; ++i) {
+                    if (parseInt(divs.eq(i).offset().top) === 0) {
+                        _now = i;
+                        break;
+                    }
+                }
+                divs.eq(_now + _next).children("div").slideDown(1000);
+                divs.eq(_now + _next).siblings().children("div").slideUp(1000);
+            });
+    </script>
+</body>
+</html>

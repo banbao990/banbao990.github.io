@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>some_fun</title>
+    <script src="../../js/jQuery.js"></script>
+    <link rel="stylesheet" href="../../import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="shortcut icon" href="../../image/game_1/game_1.jpg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        a {
+            color: black;
+        }
+
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+
+        .loading_frame {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            z-index: 10000;
+        }
+        /*game_field*/
+        .game_field {
+            position: absolute;
+            top: calc(50% - 50px);
+            left: calc(50% - 200px);
+            height: 100px;
+            width: 400px;
+            z-index: 9;
+            /*background-color: lightblue;*/
+        }
+
+            .game_field > .game {
+                float: left;
+                margin: 0 1%;
+                width: 48%;
+                height: 100%;
+                border-radius: 30px 30px 30px 30px/40px 40px 40px 40px;
+                line-height: 100px;
+                text-align: center;
+                font-size: 33px;
+                cursor: pointer;
+            }
+
+            .game_field > #game_1 {
+                background-color: lightcoral;
+            }
+
+            .game_field > #game_2 {
+                background-color: lightgoldenrodyellow;
+            }
+
+        .game_field_introduction {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 110;
+            background-color: #959595;
+        }
+
+            .game_field_introduction > .game_introduction {
+                position: absolute;
+                top: calc(50% - 180px);
+                left: calc(50% - 250px);
+                width: 500px;
+                height: 360px;
+                background-color: aliceblue;
+                text-align: left;
+                padding: 20px 70px 0px 70px;
+                box-sizing: border-box;
+                border-radius: 20px;
+            }
+
+                .game_field_introduction > .game_introduction > span {
+                    text-align: center;
+                    width: 100%;
+                    display: block;
+                    font-size: 25px;
+                    margin: 20px 0px;
+                }
+
+                    .game_field_introduction > .game_introduction > span:last-child {
+                        background-color: rgba(3, 169, 244, 0.5215686274509804);
+                        margin: 50px auto;
+                        height: 50px;
+                        line-height: 50px;
+                        width: 135px;
+                        border-radius: 25%;
+                    }
+
+                .game_field_introduction > .game_introduction > .return_game_field {
+                    height: 20px;
+                    width: 20px;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background-image: url(../../image/exit.png);
+                    background-size: 100% 100%;
+                }
+
+        canvas {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: -10;
+        }
+
+        #list > div {
+            position: absolute;
+            /*开始隐藏*/
+            display: none;
+            left: -100px;
+            top: -100px;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<!--hidden主要是为了不让鼠标移动时出现滚动条,小台球-->
+<body style="overflow:hidden;">
+    <!--loading-->
+    <div class="loading_frame">
+        <div style="height:150px;width:150px;margin:auto;top:calc(50% - 75px);position:relative;">
+            <img src="../../image/loading.gif" />
+        </div>
+    </div>
+    <!--nav-->
+    <div class="cheer">cheer</div>
+    <div class="nav" style="position:fixed;"></div>
+    <div class="nav" style="height:0;">
+        <div class="first content btn-4" id="introduction"><a href="../introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="../performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="../album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="../life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="#"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="../latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../../index.html" target="_blank"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!--Game-->
+    <div class="game_field">
+        <div class="game" id="game_1">Game&nbsp;1</div>
+        <div class="game" id="game_2">Game&nbsp;2</div>
+    </div>
+    <div class="game_field_introduction">
+        <div class="game_introduction" id="game_1_introduction">
+            <div class="return_game_field"></div>
+            <span>移动方块</span>
+            1.拼图游戏<br />
+            2.点击白色周围的小方块<br />
+            &nbsp;&nbsp;即可实现其与白色方块的互换<br />
+            3.拼成原始图样即为成功<br />
+            4.点击慢一点
+            <span><a href="game_1/index.html">开始游戏</a></span>
+        </div>
+        <div class="game_introduction" id="game_2_introduction">
+            <div class="return_game_field"></div>
+            <span>翻转游戏</span>
+            1.连连看游戏<br />
+            2.点击方块,会翻转回来<br />
+            &nbsp;&nbsp;若图片相同,则消去<br />
+            &nbsp;&nbsp;若不同,则翻回去<br />
+            3.全部消去则成功<br />
+            4.点击慢一点
+            <span><a href="game_2/index.html">开始游戏</a></span>
+        </div>
+    </div>
+    <!--canvas-->
+    <canvas id="c1" width="490" height="220"></canvas>
+    <!--mouse_following-->
+    <div id="list">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <!--end-->
+    <script>
+        //loading
+        $(function () {
+            $(".loading_frame").fadeOut(2000);//loading.gif
+        });
+        //game_introduction
+        //hover -> opacity=0.7
+        $(".game").on("mouseenter", function () {
+            $(this).animate({ opacity: 0.7 }, 1000);
+        });
+        $(".game").on("mouseleave", function () {
+            $(this).animate({ opacity: 1.0 }, 1000);
+        });
+        //点击时跳出介绍
+        $(".game").on("click", function () {
+            //隐藏两个
+            $(".game_introduction").css("display", "none");
+            //得到id
+            let id_onclick = String($(this).attr("id"));
+            let id_to_deal_with = "#" + id_onclick + "_introduction";
+            $(id_to_deal_with).css("display", "block");
+            $(".game_field_introduction").fadeIn(500);
+        });
+        $(".return_game_field").on("click", function () {
+            $(".game_field_introduction").fadeOut(500);
+        });
+        $(function () {
+            //设置canvas大小为全屏
+            c1.width = document.documentElement.clientWidth;
+            c1.height = document.documentElement.clientHeight;
+        });
+    </script>
+    <script src="../../js/nav.js"></script>
+    <!--画板事件-->
+    <script src="../../js/paint.js"></script>
+    <!--鼠标后面跟小球球-->
+    <script>
+        /*初始化*/
+        let list = document.getElementById('list');
+        let lis = list.getElementsByTagName('div');
+        for (let i = 0; i < lis.length; ++i) {
+            lis[i].style.zIndex = lis.length - i + 1000;
+            lis[i].style.backgroundImage = "url(../../image/billiards/" + (i + 1) + ".png)";
+        }
+        /*操作*/
+        document.documentElement.onmousemove = function (event) {
+            var e = event || window.event;
+            var x = e.clientX;
+            var y = e.clientY;
+            var m = 0;
+            var timer = setInterval(function () {
+                lis[m].style.left = x + 'px';
+                lis[m].style.top = y + 'px';
+                m = m + 1;
+                if (m >= lis.length) {
+                    clearTimeout(timer);
+                    m = 0;
+                }
+            }, 50);
+        }
+        /*彩蛋*/
+        //在整个页面屏蔽右击事件
+        document.oncontextmenu = function () {
+            return false;
+        }
+        $(document).mousedown(function (e) {
+            //右键为3
+            if (3 != e.which)
+                return;
+            $("#list > div").fadeToggle(500);
+        });
+    </script>
+</body>
+</html>

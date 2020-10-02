@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>index</title>
+    <link rel="stylesheet" href="import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/loading_animation_1.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="image/icon/index_icon.jpg" type="image/x-icon">
+    <script src="js/jQuery.js"></script>
+    <style>
+        * {
+            text-decoration: none;
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+        }
+
+        input {
+            text-align: center;
+        }
+
+        .body_style {
+            background-image: url(image/index_bg.jpg);
+            background-repeat: no-repeat;
+            /* 背景图垂直、水平均居中 */
+            background-position: right center;
+            /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+            background-attachment: fixed;
+            /* 让背景图基于容器大小伸缩 */
+            background-size: cover;
+            /* 设置背景颜色，背景图加载过程中会显示背景色 */
+            background-color: #34151a;
+        }
+
+        .encryption {
+            height: 100%; /*响应式布局的一种方式*/
+            width: 100%;
+            background-color: #f9f9f9;
+            position: fixed;
+            z-index: 1000;
+            margin: 0;
+            top: 0;
+            left: 0;
+        }
+
+        .frame {
+            position: absolute;
+            top: calc(50% - 250px); /*上下居中*/
+            left: calc(50% - 250px); /*左右居中*/
+            height: 500px;
+            width: 500px;
+            background-color: rgba(191, 229, 227, 0.7411764705882353);
+            box-shadow: 0px 0px 20px 10px rgba(25, 29, 29, 0.5); /*阴影*/
+        }
+
+        .login {
+            height: 100px;
+            width: 300px;
+            background-color: rgb(147, 218, 147);
+            margin: 20px auto;
+            font-size: 50px;
+            line-height: 100px;
+            text-align: center;
+            letter-spacing: 5px; /*设置字符间距*/
+            border-radius: 25%;
+        }
+
+        .INPUT {
+            margin: 10px auto;
+            width: 300px;
+            text-align: center;
+            height: 100px;
+            line-height: 100px;
+        }
+
+        #to_make_sure input:focus {
+            /* border-color: #2b542c; */
+            background-image: linear-gradient(rgba(3, 169, 244,0.5),rgba(3, 169, 244,0.5)),linear-gradient(#D2D2D2,#D2D2D2);
+            background-size: 100% 100%,100% 100%;
+        }
+
+        #to_make_sure input {
+            height: 50px;
+            width: 80%;
+            border: 0;
+            outline: 0;
+            background-image: linear-gradient(rgba(76, 175, 80,0.5),rgba(76, 175, 80,0.5)),linear-gradient(#D2D2D2,#D2D2D2);
+            background-size: 0% 100%,100% 100%;
+            background-repeat: no-repeat;
+            background-position: center bottom,center calc(100% - 1px);
+            background-color: transparent;
+            transition: background .3s ease-out;
+        }
+
+        .inOrNot {
+            width: 100%;
+            text-align: center;
+            height: 50px;
+        }
+
+            .inOrNot > div {
+                display: inline-block;
+                width: 100px;
+                margin: 10px 45px;
+            }
+
+                .inOrNot > div > a {
+                    color: black;
+                }
+
+                    .inOrNot > div > a > svg > rect {
+                        stroke: black;
+                    }
+
+        #zero {
+            height: 700px;
+        }
+
+        #static {
+            position: fixed;
+            height: 0;
+        }
+
+        #loading {
+            top: calc(50% - 320px);
+        }
+        /*响应式布局*/
+        @media screen and (max-width: 900px) {
+            .nav {
+                position: absolute;
+                left: -1000px;
+                top: 0px;
+                height: 100%;
+            }
+
+            .cheer {
+                display: block;
+                font-family: 'Brush Script Std';
+                font-size: 50px;
+                margin: 5px 0px 0px 5px;
+            }
+
+            .first {
+                margin-top: 60px;
+            }
+
+            .content > a {
+                color: white;
+            }
+
+            #zero {
+                height: 0px;
+            }
+
+            #static {
+                position: fixed;
+                height: 100%;
+            }
+        }
+        #sign_up{
+            display:none;
+        }
+            #sign_up > div {
+                position: relative;
+                height: 100px;
+                width: 300px;
+                margin: auto;
+                background-color: rgba(173, 216, 230, 0.38823529411764707);
+                text-align: center;
+                box-shadow: 0px 0px 6px 0px rgba(0, 188, 212, 0.5686274509803921);
+            }
+            #sign_up > div:nth-child(1) {
+                top: calc(50% - 50px - 100px);
+            }
+            #sign_up > div:nth-child(2) {
+                top: calc(50% - 100px);
+            }
+            #sign_up input {
+                margin: 10px auto;
+                width: 100%;
+                border: 0px;
+                height: 50px;
+                background-color: rgba(0, 188, 212, 0.12156862745098039);
+                box-shadow:none;
+            }
+            #sign_up input:focus {
+                box-shadow: 0px 0px 2px 1px inset rgb(139, 195, 74);
+                outline:none;
+            }
+
+            #sign_up > section {
+                position: relative;
+                top: 200px;
+            }
+    </style>
+</head>
+<body class="body_style">
+    <div class="encryption">
+        <div id="loading" class="animation_loading_frame">
+            <div class="shape shape_1"></div>
+            <div class="shape shape_2"></div>
+            <div class="shape shape_3"></div>
+            <div class="shape shape_4"></div>
+        </div>
+        <!--LOGIN-->
+        <div class="frame" id="sign_up">
+            <div>username<input type="text" id="sign_up_username" onkeydown="sign_up_toPassword()" /></div>
+            <div>password<input type="text" id="sign_up_password" onkeydown="sign_up_sub()" /></div>
+            <section>
+                <a class="btn btn-1" style="color:black;">
+                    <svg id="sign_in_register">
+                        <rect style="stroke:black" x="0" y="0" fill="none" width="100%" height="100%" />
+                    </svg>
+                    OK
+                </a>
+            </section>
+        </div>
+        <!--SIGN UP-->
+        <div class="frame" id="to_make_sure">
+            <div class="login">LOGIN</div>
+            <div class="INPUT"><i class="fa fa-home"></i>&nbsp;<input id="username" type="text" onkeydown="toPassword()" placeholder="username" autocomplete="off" autofocus /></div>
+            <div class="INPUT"><i class="fa fa-lock"></i>&nbsp;<input id="password" type="text" onkeydown="sub()" placeholder="password" autocomplete="off" /></div>
+            <div class="inOrNot">
+                <div>
+                    <a class="btn btn-1">
+                        <svg id="IN">
+                            <rect x="0" y="0" fill="none" width="100%" height="100%" />
+                        </svg>
+                        SIGN IN
+                    </a>
+                </div>
+                <div>
+                    <a class="btn btn-1">
+                        <svg id="UP">
+                            <rect x="0" y="0" fill="none" width="100%" height="100%" />
+                        </svg>
+                        SIGN UP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--nav-->
+    <div class="cheer">cheer</div>
+    <div class="nav" id="static"></div>
+    <div class="nav" id="zero">
+        <div class="first content btn-4" id="introduction"><a href="html/introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="html/performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="html/album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="html/life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="html/some_fun/index.html" target="_blank"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="html/latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="#"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <script>
+        //enter跳转
+        function toPassword() {
+            if (event.keyCode != 13)
+                return;
+            document.getElementById('password').focus();
+        };
+        function sub() {
+            if (event.keyCode != 13)
+                return;
+            $("#IN").trigger("click");
+        }
+        //当浏览器大小变化时,处理一个问题(宽度>900px的时候,left变回100px)
+        $(window).resize(function () {
+            let nowWidth = parseInt($(window).width());
+            let boxWidth = parseInt($(".nav").css("width"));
+            if (nowWidth > 900)
+                $(".nav").css("left", 0.15 * nowWidth);
+            else {
+                let navWidth = parseInt($(".nav").css("left"));
+                if (navWidth != 0 && navWidth != -300)
+                    $(".nav").css("left", -300);
+            }
+        });
+        //判断密码
+        $("#IN").on("click", function () {
+            let username1 = "banbao";
+            let password1 = "123456";
+            let username2 = "smjb";
+            let password2 = "123456";
+            let username = $("#username").val();
+            let password = $("#password").val();
+            if (((password1 === password) && (username1 === username)) || ((password2 === password) && (username2 === username))) {
+                $(".encryption").fadeOut(1000);
+                return;
+            } else if (localStorage.getItem("aaa") != null) {
+                let str_temp = String(localStorage.getItem("aaa"));
+                let username3 = str_temp.substr(0, str_temp.indexOf(" "));
+                let password3 = str_temp.substr(str_temp.indexOf(" ") + 1);
+                if ((password3 === password) && (username3 === username)) {
+                    $(".encryption").fadeOut(1000);
+                    return;
+                }
+            }
+            $("#password").val("error");
+            $("#username").val("error");
+        });
+        //sign up界面
+        $("#UP").on("click", function () {
+            $("#to_make_sure").fadeOut(500, function () {
+                $("#sign_up").fadeIn(500);
+                $("#sign_up_username").val("").focus();
+                $("#sign_up_password").val("");
+            });
+        });
+        //点击OK,检查输入
+        $("#sign_in_register").on("click", function () {
+            let str1 = String($("#sign_up_username").val());
+            let str2 = String($("#sign_up_password").val());
+            //没有输入
+            if (str1.length === 0 || str2.length === 0) {
+                $("#sign_up_username").val("error");
+                $("#sign_up_password").val("error");
+                return;
+            }
+            //没有输入,恶搞
+            if ("error" === str1 || "error" === str2 || "error(no space)" === str1 || "error(no space)" === str2) {
+                return;
+            }
+            //输入有空格
+            let index_1 = str1.indexOf(" ");
+            let index_2 = str2.indexOf(" ");
+            if (index_1 != -1 || index_2 != -1) {
+                $("#sign_up_username").val("error(no space)");
+                $("#sign_up_password").val("error(no space)");
+                return;
+            }           
+            localStorage.setItem("aaa", str1 + " " + str2);
+            $("#sign_up").fadeOut(500, function () {
+                $("#to_make_sure").fadeIn(500);
+                $("#username").focus();
+            });
+        });
+        //enter跳转
+        function sign_up_toPassword() {
+            if (event.keyCode != 13)
+                return;
+            document.getElementById('sign_up_password').focus();
+        };
+        function sign_up_sub() {
+            if (event.keyCode != 13)
+                return;
+            $("#sign_in_register").trigger("click");
+        }
+    </script>
+    <script src="js/nav.js"></script>
+</body>
+</html>

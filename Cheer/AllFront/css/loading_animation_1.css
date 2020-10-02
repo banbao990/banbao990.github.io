@@ -1,0 +1,136 @@
+﻿.animation_loading_frame {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    margin: auto;
+    top: 100px;
+    background-color: transparent;
+    transform: rotate(45deg);
+}
+
+.shape {
+    height: 15px;
+    width: 15px;
+    border-radius: 1px;
+}
+
+.shape_1 {
+    position: absolute;
+    background-color: #5C6BC0;
+    left: 0px;
+    top: 0px;
+    animation: animation_shape_1 2s infinite ease;
+}
+
+.shape_2 {
+    position: absolute;
+    background-color: #8BC34A;
+    left: 15px;
+    top: 0px;
+    animation: animation_shape_2 2s infinite ease;
+}
+
+.shape_3 {
+    position: absolute;
+    background-color: #FFB74D;
+    left: 15px;
+    top: 15px;
+    animation: animation_shape_3 2s infinite ease;
+}
+
+.shape_4 {
+    position: absolute;
+    background-color: #F44336;
+    left: 0px;
+    top: 15px;
+    animation: animation_shape_4 2s infinite ease;
+}
+
+@keyframes animation_shape_1 {
+    0% {
+        left: 0px;
+        top: 0px;
+    }
+
+    25% {
+        left: 15px;
+        top: 0px;
+    }
+
+    50% {
+        left: 15px;
+        top: 15px;
+    }
+
+    75% {
+        left: 0px;
+        top: 15px;
+    }
+}
+
+@keyframes animation_shape_2 {
+    0% {
+        left: 15px;
+        top: 0px;
+    }
+
+    25% {
+        left: 15px;
+        top: 15px;
+    }
+
+    50% {
+        left: 0px;
+        top: 15px;
+    }
+
+    75% {
+        left: 0px;
+        top: 0px;
+    }
+}
+
+@keyframes animation_shape_3 {
+    0% {
+        left: 15px;
+        top: 15px;
+    }
+
+    25% {
+        left: 0px;
+        top: 15px;
+    }
+
+    50% {
+        left: 0px;
+        top: 0px;
+    }
+
+    75% {
+        left: 15px;
+        top: 0px;
+    }
+}
+
+
+@keyframes animation_shape_4 {
+    0% {
+        left: 0px;
+        top: 15px;
+    }
+
+    25% {
+        left: 0px;
+        top: 0px;
+    }
+
+    50% {
+        left: 15px;
+        top: 0px;
+    }
+
+    75% {
+        left: 15px;
+        top: 15px;
+    }
+}

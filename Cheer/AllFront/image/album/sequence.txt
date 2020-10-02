@@ -1,0 +1,29 @@
+id="album_01"     Demo1                     4
+id="album_02"     让我想一想                10
+id="album_03"     还是会寂寞                11
+id="album_04"     Demo2                     5
+id="album_05"     Demo3                     10
+id="album_06"     Groupies 吉他手           13
+id="album_07"     SentimentalKills          1
+id="album_08"     旅行的意义                1
+id="album_09"     after 17                  2
+id="album_10"     华丽的冒险                11
+id="album_11"     花的姿态(live)            18
+id="album_12"     pussy                     1
+id="album_13"     失败者的飞翔              1
+id="album_14"     太阳                      11
+id="album_15"     太阳(live)                26
+id="album_16"     Demo4                     5
+id="album_17"     蜉蝣                      2
+id="album_18"     夏季练习曲(live)          22
+id="album_19"     时间的歌                  12
+id="album_20"     偶然与巧合                2
+id="album_21"     时间的歌(live)            25
+id="album_22"     我喜欢上你时的内心活动    1
+id="album_23"     台北某个地方              1
+id="album_24"     沙发海                    10
+
+[0,
+ 700, 900, 1000, 750, 800, 1100, 600, 600, 650, 1000,
+ 1300, 600, 600, 1000, 1600, 750, 650, 1350, 1050, 650,
+ 1600, 600, 600, 950];

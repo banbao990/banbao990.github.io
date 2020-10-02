@@ -1,0 +1,15 @@
+﻿#ci-particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0px;
+    left:0px;
+    background: #000 no-repeat center center fixed;
+    background-size: cover;
+    font-weight: 700;
+}
+
+    #ci-particles #canvas {
+        width: 100vw;
+        height: 100vh;
+    }

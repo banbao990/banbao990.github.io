@@ -1,0 +1,835 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>album</title>
+    <script type="text/javascript" src="../../js/jQuery.js"></script>
+    <script type="text/javascript" src="../../js/jquery.easing.js"></script>
+    <link rel="stylesheet" href="..././import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/nav.css" />
+    <link rel="stylesheet" href="../../css/loading_animation_3.css" />
+    <link rel="shortcut icon" href="../../image/icon/album_icon.jpg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .body_style {
+            background-image: url(../../image/album_bg.jpg);
+            background-repeat: no-repeat;
+            /* 背景图垂直、水平均居中 */
+            background-position: center center;
+            /* 当内容高度大于图片高度时,背景图像的位置相对于viewport固定 */
+            background-attachment: fixed;
+            /* 让背景图基于容器大小伸缩 */
+            background-size: cover;
+            /* 设置背景颜色,背景图加载过程中会显示背景色 */
+            background-color: #6c9fb0;
+        }
+
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+
+        .loading_frame {
+            position: fixed;
+            z-index: 10000;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+
+        .gearbox {
+            position: absolute;
+            left: calc(50% - 100px);
+            top: calc(50% - 75px);
+        }
+
+        .back {
+            height: 20px;
+            width: 20px;
+            position: fixed;
+            right: 100px;
+            bottom: 100px;
+            z-index: 1000;
+        }
+
+        .main_frame {
+            margin: auto;
+            margin-top: 50px;
+            height: 1400px;
+            width: 800px;
+        }
+
+        .CD {
+            height: 100px;
+            width: 100px;
+            animation: CD_rotation 4s linear infinite;
+            float: left;
+        }
+
+        @keyframes CD_rotation {
+            to {
+                transform: rotate(1turn);
+            }
+        }
+
+        .CD > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .year {
+            width: 700px;
+            overflow: hidden;
+            height: 1400px;
+        }
+
+        #control {
+            position: relative;
+            left: -700px;
+            z-index: 100;
+            height: 1400px;
+        }
+
+            #control .title {
+                position: relative;
+                display: inline-block;
+                width: 200px;
+                text-align: center;
+                height: 1400px;
+                line-height: 100px;
+            }
+
+            #control > .title:first-child {
+                margin-left: 10px;
+                max-height: 300px;
+            }
+
+            #control > .title:nth-child(2) {
+                max-height: 1300px;
+            }
+
+            #control > .title:nth-child(3) {
+                max-height: 1100px;
+            }
+
+            #control > .title > .the_son_of_title {
+                display: none;
+                position: absolute;
+                top: 100px;
+                left: 0px;
+                height: 1400px;
+                width: 200px;
+            }
+
+                #control > .title > .the_son_of_title:nth-child(1) {
+                    max-height: 300px;
+                }
+
+                #control > .title > .the_son_of_title:nth-child(2) {
+                    max-height: 1300px;
+                }
+
+                #control > .title > .the_son_of_title:nth-child(3) {
+                    max-height: 1100px;
+                }
+
+        .son_year {
+            background-color: rgb(240, 238, 254);
+        }
+
+        .album {
+            display: block;
+            height: 100px;
+            line-height: 50px;
+            font-size: 18px;
+            background-color: rgb(209, 209, 209);
+        }
+
+        .the_son_of_title .album:nth-child(2n+1) {
+            background-color: rgb(239, 239, 239);
+        }
+
+        .current {
+            opacity: 0.7;
+        }
+
+        .image_introduction_frame {
+            position: relative;
+            margin: auto;
+            height: 0px;
+            width: 800px;
+            background-color: rgba(155, 164, 169, 0.67);
+            top: -1250px;
+            z-index: 50;
+            overflow: hidden;
+        }
+
+            .image_introduction_frame > #inner_image {
+                position: relative;
+                top: 50px;
+                height: 300px;
+                width: 300px;
+                margin: auto;
+                background-color: green;
+                background-image: url(../../image/album/album_01.jpg);
+                background-size: 100% 100%;
+            }
+
+            .image_introduction_frame > .album_introduction {
+                background-color: transparent;
+                height: 800px;
+                width: 80%;
+                position: absolute;
+                top: 400px;
+                left: 10%;
+                display: none;
+            }
+
+                .image_introduction_frame > .album_introduction > .album_title {
+                    height: 99px;
+                    line-height: 33px;
+                    text-align: center;
+                    font-size: 21px;
+                    margin-bottom: 10px;
+                }
+
+                .image_introduction_frame > .album_introduction > a {
+                    display: block;
+                    text-align: center;
+                    margin: 17px auto;
+                }
+
+        .hooooooooo {
+            /*nothing*/
+        }
+    </style>
+</head>
+<body class="body_style">
+    <!--加载动画-->
+    <div class="loading_frame">
+        <div class="gearbox">
+            <div class="overlay"></div>
+            <div class="gear one">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+            <div class="gear two">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+            <div class="gear three">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+            <div class="gear four large">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--nav-->
+    <div class="cheer" style="z-index:4000;">cheer</div>
+    <div class="nav" style="position:fixed;z-index:2000;"></div>
+    <div class="nav" style="height:0;z-index:3000;">
+        <div class="first content btn-4" id="introduction"><a href="../introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="../performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="#"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="../life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="../some_fun/index.html" target="_blank"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="../latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../index.html"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!--toTop-->
+    <div class="back"><i class="fa fa-arrow-up fa-2x"></i></div>
+    <!--main-->
+    <!--list-->
+    <div class="main_frame">
+        <div class="CD">
+            <img src="../../image/CD.png" alt="CD" />
+        </div>
+        <div class="year" id="year">
+            <div id="control">
+                <div class="title">
+                    <div class="son_year">1990-1999</div>
+                    <div class="the_son_of_title">
+                        <div class="album" id="album_01">1997<br />Demo1</div>
+                        <div class="album" id="album_02">1998<br />让我想一想</div>
+                    </div>
+                </div>
+                <div class="title">
+                    <div class="son_year">2000-2009</div>
+                    <div class="the_son_of_title">
+                        <div class="album" id="album_03">2000<br />还是会寂寞</div>
+                        <div class="album" id="album_04">2000<br />Demo2</div><!--Demo2-Cheer'sWalkman-->
+                        <div class="album" id="album_05">2001<br />Demo3</div>
+                        <div class="album" id="album_06">2002<br />Groupies&nbsp;吉他手</div>
+                        <div class="album" id="album_07">2003<br />SentimentalKills</div><!--Cheer'strack001:SentimentalKills-->
+                        <div class="album" id="album_08">2004<br />旅行的意义</div><!--Cheer'strack002:旅行的意义-->
+                        <div class="album" id="album_09">2004<br />after&nbsp;17</div><!--Cheer'strack003:after17-->
+                        <div class="album" id="album_10">2005<br />华丽的冒险</div>
+                        <div class="album" id="album_11">2007<br />花的姿态(live)</div>
+                        <div class="album" id="album_12">2007<br />pussy</div><!--Cheer'strack004:pussy-->
+                        <div class="album" id="album_13">2008<br />失败者的飞翔</div><!--Cheer'strack005:失败者的飞翔-->
+                        <!--<div class="album">2009<br />太阳(募款限定单曲)</div>-->
+                        <div class="album" id="album_14">2009<br />太阳</div>
+                    </div>
+                </div>
+                <div class="title">
+                    <div class="son_year">2010-2019</div>
+                    <div class="the_son_of_title">
+                        <div class="album" id="album_15">2010<br />太阳(live)</div>
+                        <div class="album" id="album_16">2011<br />Demo4</div>
+                        <div class="album" id="album_17">2011<br />蜉蝣</div><!--Cheer'strack006:蜉蝣-->
+                        <div class="album" id="album_18">2012<br />夏季练习曲(live)</div><!--A&nbsp;Piece&nbsp;of&nbsp;Summer&nbsp;II夏季练习曲(live)-->
+                        <div class="album" id="album_19">2013<br />时间的歌</div>
+                        <div class="album" id="album_20">2014<br />偶然与巧合</div><!--Cheer'strack007:偶然与巧合-->
+                        <div class="album" id="album_21">2015<br />时间的歌(live)</div>
+                        <div class="album" id="album_22">2017<br />我喜欢上你时的内心活动</div><!--我喜欢上你时的内心活动(数位单曲)-->
+                        <div class="album" id="album_23">2018<br />台北某个地方</div><!--Cheer'strack008:台北某个地方-->
+                        <div class="album" id="album_24">2018<br />沙发海</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--image/album_introduction-->
+    <div class="image_introduction_frame">
+        <div id="inner_image"></div>
+        <div class="album_introduction" id="album_01_introduction">
+            <div class="album_title">
+                Demo&nbsp;1<br />
+                發行日期:1997年09月<br />
+                發行公司:魔岩唱片<br />
+            </div>
+            <a>狂恋&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>孤岛&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>嫉妒&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>让我想一想&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_02_introduction">
+            <div class="album_title">
+                讓我想一想<br />
+                發行日期:1998年07月<br />
+                發行公司:魔岩唱片<br />
+            </div>
+            <a>让我想一想/Think&nbsp;Twice&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>微凉的你/September&nbsp;作词:陈绮贞&nbsp;作曲:林暐哲</a>
+            <a>会不会/Will&nbsp;You&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>和你在一起/With&nbsp;You&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>嫉妒/Jealous&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>孤岛/Island&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>孩子/Miss&nbsp;Children&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>天使/Devil&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>漫漫长夜/Longly&nbsp;Longly&nbsp;Night&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_03_introduction">
+            <div class="album_title">
+                還是會寂寞<br />
+                發行日期:2000年04月<br />
+                發行公司:魔岩唱片<br />
+            </div>
+            <a>越洋电话/After&nbsp;Calling&nbsp;You&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>我的骄傲无可救药/Selfish&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>还是会寂寞/Lonely&nbsp;without&nbsp;You&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>下午三点/3pm&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>温室花朵/Dying&nbsp;in&nbsp;Your&nbsp;Love&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>午餐的约会/Lunch&nbsp;Date&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>等待/Waiting&nbsp;for&nbsp;You&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>慢歌3/Explain&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>告诉我/Tell&nbsp;Me&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>慢歌1/Slow&nbsp;#1&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>灵感/Gift&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_04_introduction">
+            <div class="album_title">
+                Demo&nbsp;2&nbsp;Cheer's&nbsp;Walkman<br />
+                發行日期:2000年03月<br />
+                發行公司:魔岩唱片<br />
+            </div>
+            <a>夜游&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>Enemy&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>温室花朵&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>慢歌3&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>微凉的你&nbsp;作词:陈绮贞&nbsp;作曲:林暐哲</a>
+        </div>
+        <div class="album_introduction" id="album_05_introduction">
+            <div class="album_title">
+                Demo&nbsp;3<br />
+                發行日期:2001年11月<br />
+                發行公司:魔岩唱片<br />
+            </div>
+            <a>他唱起歌来了</a>
+            <a>坐火车到传说中的湘南海岸</a>
+            <a>妈妈睡了</a>
+            <a>我喜欢木村拓哉</a>
+            <a>朋友</a>
+            <a>其实我很羡慕你</a>
+            <a>星期天的下午</a>
+            <a>我有一套限量的约翰连侬纪念邮票</a>
+            <a>我还是如此的清醒</a>
+            <a>我终于懂了</a>
+            <a>梦</a>
+            <a>黄色的浮板</a>
+            <a>我们连觉也没睡决定连夜赶去拜访艾立克克莱普顿</a>
+            <a>歌迷</a>
+            <a>整个世界的黑暗</a>
+            <a>九份的咖啡店&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_06_introduction">
+            <div class="album_title">
+                Groupies&nbsp;吉他手<br />
+                發行日期:2002年08月<br />
+                發行公司:滾石國際音樂股份有限公司<br />
+            </div>
+            <a>我亲爱的偏执狂/Miss&nbsp;Paranoid&nbsp;作词:曲培芷/孙诗雯&nbsp;作曲:陈绮贞</a>
+            <a>太聪明/Too&nbsp;Smart&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>小步舞曲/A&nbsp;Little&nbsp;Step&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>1234567&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>随便说说/Say&nbsp;Something&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>躺在你的衣柜-Guitar/In&nbsp;My&nbsp;Closet&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>A&nbsp;Practice&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>吉他手/Groupies&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>黑眼圈/Black&nbsp;Eyes&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>就算全世界与我为敌/Enemy&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>小尘埃/Metaphor&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>不应该/Unavailable&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>躺在你的衣柜-Piano/In&nbsp;My&nbsp;Closet&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_07_introduction">
+            <div class="album_title">
+                Track&nbsp;1&nbsp;-&nbsp;Sentimental&nbsp;Kills<br />
+                發行日期:2003年11月<br />
+                發行公司:cheerego.com<br />
+            </div>
+            <a>Sentimental&nbsp;Kills&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_08_introduction">
+            <div class="album_title">
+                Track&nbsp;2&nbsp;-&nbsp;旅行的意義<br />
+                發行日期:2004年03月<br />
+                發行公司:cheerego.com<br />
+            </div>
+            <a>旅行的意义&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_09_introduction">
+            <div class="album_title">
+                Track&nbsp;3&nbsp;-&nbsp;after&nbsp;17<br />
+                發行日期:2004年12月<br />
+                發行公司:cheerego.com<br />
+            </div>
+            <a>after&nbsp;17&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>小小校歌&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_10_introduction">
+            <div class="album_title">
+                華麗的冒險<br />
+                發行日期:2005年09月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>旅行的意义/Travelling&nbsp;is&nbsp;meaningful&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>腐朽/Full&nbsp;Moon&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>Sentimental&nbsp;Kills&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>华丽的冒险/Adventure&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太多/Too&nbsp;Much&nbsp;作词:鸿鸿&nbsp;作曲:陈绮贞</a>
+            <a>花的姿态/Flowers&nbsp;作词:吴佳颖&nbsp;作曲:陈绮贞</a>
+            <a>Self&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>80%完美的日子/80%&nbsp;Perfect&nbsp;Days&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>表面的和平/Surface&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>静静的生活/Live&nbsp;in&nbsp;slience&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>最初的起点/Businesswoman&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_11_introduction">
+            <div class="album_title">
+                陳綺貞2005-2006花的姿態演唱會經典實錄(DVD)<br />
+                發行日期:2007年5月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>腐朽&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>躺在你的衣柜&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>华丽的冒险&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>花的姿态&nbsp;作词:吴佳颖&nbsp;作曲:陈绮贞</a>
+            <a>告诉我&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>我的骄傲无可救药&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>我亲爱的偏执狂&nbsp;作词:曲培芷/孙诗雯&nbsp;作曲:陈绮贞</a>
+            <a>灵感&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>小步舞曲&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>女明星&nbsp;作词:陈绮贞&nbsp;作曲:钟成虎</a>
+            <a>吉他手/Groupies&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>1234567&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>让我想一想&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>还是会寂寞&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>旅行的意义&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>after&nbsp;17&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>80%完美的日子&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太聪明/Too&nbsp;Smart&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_12_introduction">
+            <div class="album_title">
+                Track&nbsp;4&nbsp;-&nbsp;pussy<br />
+                發行日期:2007年02月<br />
+                發行公司:cheerego.com<br />
+            </div>
+            <a>pussy&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_13_introduction">
+            <div class="album_title">
+                Track&nbsp;5&nbsp;-&nbsp;失敗者的飛翔<br />
+                發行日期:2008年07月<br />
+                發行公司:cheerego.com<br />
+                <br />
+            </div>
+            <a>失败者的飞翔&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_14_introduction">
+            <div class="album_title">
+                太陽<br />
+                發行日期:2009年01月<br />
+                發行公司:添翼創越工作室<br />
+                <br />
+            </div>
+            <a>手的预言&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>狂恋&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太阳&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>鱼&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>距离&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>倔强爱情的胜利&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>失败者的飞翔&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>下个星期去英国&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>另一种平静&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>烟火&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>一首歌,让你带回去&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_15_introduction">
+            <div class="album_title">
+                太陽巡迴演唱會&nbsp;immortal&nbsp;tour&nbsp;影音記錄<br />
+                發行日期:2010年5月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>手的预言&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太阳&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>腐朽&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>Self&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>孤独是&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>嫉妒&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>手风琴solo</a>
+            <a>下个星期去英国&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>倔强爱情的胜利&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>失败者的飞翔&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>一首歌,让你带回去&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>烟火&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>我亲爱的偏执狂&nbsp;作词:曲培芷/孙诗雯&nbsp;作曲:陈绮贞</a>
+            <a>吉他solo</a>
+            <a>等待&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>1234567&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>吉他手&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>让我想一想&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>鱼&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>孤岛&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>旅行的意义&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>距离&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>每天都是一种练习&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>会不会&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太阳(吉他版)&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>灵感&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_16_introduction">
+            <div class="album_title">
+                Demo&nbsp;4<br />
+                發行日期:2011年12月<br />
+                發行公司:cheerego.com<br />
+                <br />
+            </div>
+            <a>one&nbsp;of&nbsp;us&nbsp;singing&nbsp;lalala&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>that&nbsp;girl&nbsp;is&nbsp;you&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>red&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>a&nbsp;little&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>somebody&nbsp;calling&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_17_introduction">
+            <div class="album_title">
+                Track&nbsp;6&nbsp;-&nbsp;蜉蝣<br />
+                發行日期:2011年10月<br />
+                發行公司:cheerego.com<br />
+            </div>
+            <a>蜉蝣&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>迷雾中跳舞</a>
+        </div>
+        <div class="album_introduction" id="album_18_introduction">
+            <div class="album_title">
+                A&nbsp;Piece&nbsp;of&nbsp;summer&nbsp;II&nbsp;夏季練習曲世界巡迴現場錄音<br />
+                發行日期:2012年9月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>小尘埃&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>狂恋&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>(失明前)我想记得的四十七件事&nbsp;作词:李格弟&nbsp;作曲:陳建騏</a>
+            <a>Sentimental&nbsp;Kills&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>旅行的意义&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太多&nbsp;作词:鸿鸿&nbsp;作曲:陈绮贞</a>
+            <a>躺在你的衣柜&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>漂着&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>鱼&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>越洋电话&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>after&nbsp;17&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>表面的和平&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>迷雾中跳舞</a>
+            <a>La&nbsp;Vie&nbsp;En&nbsp;Rose&nbsp;作词:Edith&nbsp;Piaf&nbsp;作曲:Louis&nbsp;Gugliemi</a>
+            <a>一起去巴黎&nbsp;作词:陈绮贞&nbsp;作曲:李雨寰</a>
+            <a>下午三点&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>最初的起点&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>让我想一想&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>慢歌1&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>旅行的意义&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>小小校歌&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>天天想你&nbsp;作词:陈乐融&nbsp;作曲:陈志远</a>
+        </div>
+        <div class="album_introduction" id="album_19_introduction">
+            <div class="album_title">
+                時間的歌<br />
+                發行日期:2013年12月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>時間的歌/Song&nbsp;of&nbsp;Transience&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>漣漪/Ripple&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>柏拉圖式的愛情/Prototype&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>Peace&nbsp;and&nbsp;Revolution&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>雨水一盒/A&nbsp;Box&nbsp;Full&nbsp;of&nbsp;Rain&nbsp;作词:李格弟&nbsp;作曲:陈绮贞</a>
+            <a>秋天蒙太奇/Autumn&nbsp;Montage&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>流浪者之歌/Gypsy&nbsp;In&nbsp;Memory&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>倒數/Count&nbsp;Down&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>沙漏/View&nbsp;with&nbsp;a&nbsp;Grain&nbsp;of&nbsp;Sand&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>&nbsp;普魯斯特行動/Proustification&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>別送我回家/Walk&nbsp;Home&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>家/Home&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_20_introduction">
+            <div class="album_title">
+                Track&nbsp;7&nbsp;-&nbsp;偶然與巧合<br />
+                發行日期:201​4​年1​2​月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>偶然与巧合&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>海浪(纯音乐)</a>
+        </div>
+        <div class="album_introduction" id="album_21_introduction">
+            <div class="album_title">
+                時間的歌&nbsp;Songs&nbsp;of&nbsp;Transience&nbsp;巡迴演唱影音記錄<br />
+                發行日期:2015年11月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>"时间的歌"演唱会预告</a>
+            <a>雨水一盒&nbsp;作词:李格弟&nbsp;作曲:陈绮贞</a>
+            <a>漣漪&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>腐朽&nbsp;Moon&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太阳&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>鱼&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>秋天蒙太奇&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>天使&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>失败者的飞翔&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>灵感&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>一首歌,让你带回去&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>Peace&nbsp;and&nbsp;Revolution&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>躺在你的衣柜&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>我亲爱的偏执狂&nbsp;作词:曲培芷/孙诗雯&nbsp;作曲:陈绮贞</a>
+            <a>普魯斯特行動/Proustification&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>1234567&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>告诉我&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>沙漏&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>流浪者之歌&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>旅行的意义&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>別送我回家/Walk&nbsp;Home&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>让我想一想&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>家&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>太聪明&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>時間的歌/Song&nbsp;of&nbsp;Transience&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_22_introduction">
+            <div class="album_title">
+                我喜欢上你时的内心活动<br />
+                电影"喜欢你"主题曲<br />
+                陈绮贞<br />
+            </div>
+            <a>我喜欢上你时的内心活动&nbsp;作词:韩寒&nbsp;作曲:陈光荣</a>
+        </div>
+        <div class="album_introduction" id="album_23_introduction">
+            <div class="album_title">
+                Track&nbsp;8&nbsp;-&nbsp;台北某個地方<br />
+                發行日期:2018年03月<br />
+                發行公司:添翼創越工作室 <br />
+            </div>
+            <a>台北某个地方&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+        <div class="album_introduction" id="album_24_introduction">
+            <div class="album_title">
+                沙發海<br />
+                發行日期:2018年12月<br />
+                發行公司:添翼創越工作室<br />
+            </div>
+            <a>沙发海/Sofa&nbsp;Sea&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>华生/Bromance&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>残缺的彩虹/Imperfect&nbsp;Rainbow&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>台北某个地方/Somewhere,&nbsp;Taipei&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>观察者/Observer&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>小船/Impressionism&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>伤害/Hurt&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>跳舞吧/Loser&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>她说/She&nbsp;Says&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+            <a>变色龙/Chameleon&nbsp;作词:陈绮贞&nbsp;作曲:陈绮贞</a>
+        </div>
+    </div>
+    <!--end-->
+    <script src="../../js/nav.js"></script>
+    <script>
+        //loading 隐藏
+        $(function () {
+            setTimeout(function () {
+                $(".loading_frame").fadeOut(3000);
+            }, 1000)
+        });
+        //year 出现
+        //$(".CD").on("click", function () { $(".year").fadeToggle(); });
+
+        $(".CD").on("click", function () {
+            //回收介绍栏
+            let whether_hoo = $(".hooooooooo");
+            if (whether_hoo.length > 0) {
+                whether_hoo.eq(0).animate({ height: 0 }, 1500);
+                whether_hoo.eq(0).removeClass("hooooooooo");
+                return;
+            }
+            //右移year
+            let left = parseInt($("#control").css("left"));
+            //$(selector).animate(styles,speed,easing,callback)
+            //console.log(width);
+            if (left != 0) {
+                $("#control").animate({ left: 0 }, 1000);
+            }
+            else {
+                let last = $(".current");
+                if (last.length > 0) {
+                    last.siblings(".the_son_of_title").slideUp(500, function () {
+                        last.removeClass("current");
+                        $("#control").animate({ left: -700 }, 1000);
+                    });
+                }
+                else
+                    $("#control").animate({ left: -700 }, 1000);
+            }
+        });
+
+        //上下移动
+        //好奇怪啊,为什么移动的时候感觉突然变得很快,很奇怪,解决了,是the_son_of_title的高度设置太小了
+        $(".son_year").on("click", function () {
+            let last = $(".current");
+            let now = $(this);
+            //返回不为空
+            //返回不是同一个对象
+            if (last.length > 0 && last[0] != now[0]) {
+                //let last_max_height = parseInt(last.parent().css("maxHeight"));
+                //console.log(last_max_height);
+                //变化很不舒适,解决了,是the_son_of_title的高度设置太小了
+                last.siblings(".the_son_of_title").slideUp(1500, "easeInOutExpo", function () {
+                    last.removeClass("current");
+                    now.addClass("current");
+                    now.siblings(".the_son_of_title").slideToggle(1500, "easeInOutExpo");
+                });
+            }
+            else {
+                //返回不是同一个对象
+                if (last[0] != now[0])
+                    now.addClass("current");
+                now.siblings(".the_son_of_title").slideToggle(1500, "easeInOutExpo", function () {
+                    if (last[0] == now[0])
+                        last.removeClass("current");
+                });
+            }            //利用setTimeout来实现callback的效果,不太好
+            //setTimeout(function () { now.siblings(".the_son_of_title").slideToggle().addClass("current"); },500);
+        });
+        //mouseover
+        $(".album").on("mouseenter", function () { $(this).animate({ opacity: 0.5 }); })
+            .on("mouseleave", function () { $(this).animate({ opacity: 1.0 }); });
+        //返回顶部
+        function toTop() {
+            var gotoTop = function () {
+                var currentPosition = document.documentElement.scrollTop || document.body.scrollTop;
+                currentPosition -= 10;
+                if (currentPosition > 0) {
+                    window.scrollTo(0, currentPosition);
+                }
+                else {
+                    window.scrollTo(0, 0);
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+            var timer = setInterval(gotoTop, 1);
+        }
+        $(function () { $(".back").on("click", function () { toTop(); }) });
+
+        //处理专辑的事件
+        $(".album").on("click", function () {
+            let now_id_string = $(this).attr("id");//获取id的值
+            let now_id_int = parseInt(now_id_string.substr(6, 8));
+            //console.log(now_id_string);
+            //console.log(now_id_int);
+            //处理图片内容
+            let image = "../../image/album/";
+            document.getElementById("inner_image").style.backgroundImage = "url(" + image + now_id_string + ".jpg)";
+            //处理文字内容
+            $(".album_introduction").hide();
+            let id_to_deal = "#" + now_id_string + "_introduction";
+            $(id_to_deal).show();
+            //处理整体
+            let height_now = [0, 700, 900, 1000, 750, 800, 1100, 600, 600, 650, 1000, 1300, 600, 600, 1000, 1600, 750, 650, 1350, 1050, 650, 1600, 600, 600, 950];
+            //console.log(height_now.length);
+            //没有callback
+            $(".CD").trigger("click");
+            //延迟1.5s再运行
+            $(function () {
+                var timeout = setTimeout(function () {
+                    $(".image_introduction_frame").addClass("hooooooooo").animate({ height: height_now[now_id_int] }, 1500);
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

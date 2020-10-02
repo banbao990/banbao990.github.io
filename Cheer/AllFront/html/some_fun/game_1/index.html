@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>移动方块</title>
+    <script src="../../../js/jQuery.js"></script>
+    <link rel="stylesheet" href="../../../import/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../css/buttons.css" />
+    <link rel="stylesheet" href="../../../css/nav.css" />
+    <link rel="shortcut icon" href="../../../image/game_1/game_1.jpg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            font-family: Consolas,KaiTi;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .frame {
+            margin: auto;
+            width: 455px;
+            height: 455px;
+            position: relative;
+            top: 25px;
+        }
+
+        .cube {
+            width: 23%;
+            height: 23%;
+            margin: 3px;
+            display: inline-block;
+            background-size: 100% 100%;
+        }
+
+        .initial_image {
+            height: 200px;
+            width: 200px;
+            margin: auto;
+            top: 20px;
+            margin-top: 20px;
+        }
+
+            .initial_image > img {
+                height: 100%;
+                width: 100%;
+            }
+
+        .start {
+            height: 100px;
+            margin: auto;
+            background-color: rgba(0, 128, 0, 0.0196078431372549);
+            margin-top: 20px;
+            width: 200px;
+            border-radius: 25%;
+        }
+
+        #out {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(0, 0, 0,0.7);
+            display: none;
+            z-index: 100;
+            height: 100%;
+            width: 100%;
+        }
+
+        #mid {
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            height: 50%;
+            width: 50%;
+            border-radius: 25%;
+            background-color: rgb(163, 185, 162);
+            z-index: 110;
+        }
+
+        #in {
+            text-align: center;
+            position: relative;
+            height: 100%;
+            font-size: 50px;
+            z-index: 120;
+        }
+
+        #exit {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 30px;
+            width: 30px;
+            background-image: url(../../../image/exit.png);
+            background-size: 100% 100%;
+            z-index: 130;
+        }
+
+        .loading_frame {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            z-index: 10000;
+        }
+        /*其他界面就不用响应式了,直接收到左边*/
+        .nav {
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            height: 100%;
+            background-color: black;
+        }
+
+        .cheer {
+            display: block;
+            font-family: 'Brush Script Std';
+            font-size: 50px;
+            margin: 5px 0px 0px 5px;
+        }
+
+        .first {
+            margin-top: 60px;
+        }
+        /*back_to_last_html*/
+        #back_to_last_html {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 30px;
+            width: 50px;
+            text-align: center;
+            line-height: 30px;
+            background-color: rgba(2, 255, 255, 0.32);
+            color: #a3a3a3;
+            text-decoration: none;
+            border-radius: 20%;
+        }
+
+            #back_to_last_html > a {
+                color: black;
+            }
+    </style>
+</head>
+<body style=" margin:0; width:100%;height:100%;background-color: rgba(164, 158, 154, 0.11);">
+    <!--back_to_last_html-->
+    <div id="back_to_last_html"><a href="../index.html">BACK</a></div>
+    <!--loading-->
+    <div class="loading_frame">
+        <div style="height:150px;width:150px;margin:auto;top:calc(50% - 75px);position:relative;">
+            <img src="../../../image/loading.gif" />
+        </div>
+    </div>
+    <!--nav-->
+    <div class="cheer">cheer</div>
+    <div class="nav" style="position:fixed;"></div>
+    <div class="nav" style="height:0;">
+        <div class="first content btn-4" id="introduction"><a href="../../introduction/index.html" target="_blank"><i class="fa fa-snowflake-o"></i>&nbsp;陈绮贞/cheer</a></div>
+        <div class="content btn-3" id="performance"><a href="../../performance/index.html" target="_blank"><i class="fa fa-gift"></i>&nbsp;演艺经历</a></div>
+        <div class="content btn-4" id="album"><a href="../../album/index.html" target="_blank"><i class="fa fa-music"></i>&nbsp;专辑</a></div>
+        <div class="content btn-3" id="life-story"><a href="../../life-story/index.html" target="_blank"><i class="fa fa-photo"></i>&nbsp;生活·故事</a></div>
+        <div class="content btn-4" id="some_fun"><a href="../../some_fun/index.html"><i class="fa fa-cubes"></i>&nbsp;周边</a></div>
+        <div class="content btn-3" id="latest_news"><a href="../../latest_news/index.html" target="_blank"><i class="fa fa-newspaper-o"></i>&nbsp;最新消息</a></div>
+        <div class="content btn-4" id="home"><a href="../../../index.html" target="_blank"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
+    </div>
+    <!--main-->
+    <div class="initial_image"><img src="../../../image/game_1/game_1.jpg" alt="陈绮贞_摄影" /></div>
+    <div class="start">
+        <a style="color:#000;" class="btn btn-1">
+            <svg style="color:#000;">
+                <rect style="stroke:#000;" x="0" y="0" fill="none" width="100%" height="100%" />
+            </svg>
+            <span id="start_or_reflash">开始游戏</span>
+        </a>
+    </div>
+    <div class="frame">
+        <div class="cube" id="cube_00"></div><div class="cube" id="cube_01"></div><div class="cube" id="cube_02"></div><div class="cube" id="cube_03"></div><div class="cube" id="cube_04"></div><div class="cube" id="cube_05"></div><div class="cube" id="cube_06"></div><div class="cube" id="cube_07"></div><div class="cube" id="cube_08"></div><div class="cube" id="cube_09"></div><div class="cube" id="cube_10"></div><div class="cube" id="cube_11"></div><div class="cube" id="cube_12"></div><div class="cube" id="cube_13"></div><div class="cube" id="cube_14"></div><div class="cube" id="cube_15"></div>
+    </div>
+    <!--set the game center-->
+    <div style="height:150px"></div>
+    <!--you_win-->
+    <div id="out">
+        <div id="mid">
+            <div id="exit"></div>
+            <div id="in">YOU WIN!</div>
+        </div>
+    </div>
+    <!--jQuery-->
+    <!--javascript-->
+    <script>
+        var blank = "url(\"../../../image/blank.jpg\")";
+        var divs = document.getElementsByClassName("cube");//表示16个小方块
+        //loading
+        $(function () {
+            $(".loading_frame").fadeOut(2000);//loading.gif
+            init();
+        });
+        //初始化整张图片
+        function init() {
+            let image = "../../../image/game_1/game_1_";
+            for (let i = 0; i < divs.length; i++) {
+                divs[i].style.backgroundImage = "url(" + image + "" + PrefixInteger(i + 1, 2) + ".gif)";
+            }
+            //隐藏最后一张
+            $(".frame .cube:last").css("backgroundImage", blank);
+        }
+
+        //实现数字前面不够补0
+        function PrefixInteger(num, length) {
+            return (Array(length).join('0') + num).slice(-length);
+        }
+        //$(selector).animate(styles, speed, easing, callback)
+
+        //点击开始游戏按钮
+        $(".start").on("click", function () {
+            random_image();
+            $("#start_or_reflash").html("重新开始游戏");
+        });
+
+        //将整张图片打乱顺序
+        //模拟游戏多次,保证有解
+        function random_image() {
+            let blank_number = 15;
+            let location;   //与空白交换的位置
+            let r;      //random_number,找出随机交换的位置
+            for (let i = 0; i < 500; i++) {
+                //Math.random()
+                //返回[0, 1)
+                let syxz = [1, 1, 1, 1];//上右下左
+                if (blank_number < 4)
+                    syxz[0] = 0;
+                if (blank_number % 4 === 3)
+                    syxz[1] = 0;
+                if (blank_number >= 12)
+                    syxz[2] = 0;
+                if (blank_number % 4 === 0)
+                    syxz[3] = 0;
+                let random_number = Math.floor(Math.random() * 100) + 1;//10只是一个数字
+                r = 0;
+                while ((random_number--) > 0) {
+                    while (syxz[r] === 0) {
+                        if (r == 3)
+                            r = 0;
+                        else
+                            r++;
+                    }
+                    if (r == 3)
+                        r = 0;
+                    else
+                        r++;
+                    while (syxz[r] === 0) {
+                        if (r == 3)
+                            r = 0;
+                        else
+                            r++;
+                    }
+                }
+                switch (r) {
+                    case 0:
+                        location = blank_number - 4;
+                        break;
+                    case 1:
+                        location = blank_number + 1;
+                        break;
+                    case 2:
+                        location = blank_number + 4;
+                        break;
+                    case 3:
+                        location = blank_number - 1;
+                        break;
+                    default:
+                        break;
+                }
+                swap_image(blank_number, location);
+                blank_number = location;
+            }
+        }
+
+        //交换两块区域的backgroundImage
+        //a ,b 区域
+        function swap_image(a, b) {
+            let temp = divs[a].style.backgroundImage;
+            divs[a].style.backgroundImage = divs[b].style.backgroundImage;
+            divs[b].style.backgroundImage = temp;
+        }
+
+        $(".cube").on("click", function () {
+            //转移div上的img
+            let blank_number = find_blank();//返回blank的下标
+            let sstr = String($(this).attr("id"));
+            let id = parseInt(sstr.substring(5, 7));
+            if (!is_bisides(blank_number, id))
+                return;
+            swap_image(blank_number, id);
+            check();
+        });
+
+        //检查是否相邻
+        function is_bisides(a, b) {
+            let small = (a < b) ? a : b;
+            let big = a + b - small;
+            if (big - small === 4)
+                return true;
+            if ((big - small === 1) && (big % 4 != 0))
+                return true;
+            return false;
+        }
+
+        //检查你有没成功完成任务
+        function check() {
+            if (divs[15].style.backgroundImage != blank) {
+                return;
+            }
+            for (let i = 0; i < divs.length - 1; i++) {
+                let str = divs[i].style.backgroundImage;
+                //url("../../../image/game_1/game_1_08.gif")
+                let sstr = String(str);
+                let index = sstr.indexOf("gif");
+                let temp = sstr.substr(index - 3, index - 1);
+                let number = parseInt(temp);
+                if ((i + 1) != number)
+                    return;
+            }
+            win();
+        }
+
+        //游戏胜利
+        function win() {
+            console.log("you win");
+            $("#out").fadeIn(300);
+            //"网页可见区域高"                   document.body.clientHeight
+            //"网页可见区域宽(包括边线的宽)"     document.body.offsetWidth
+            //$(window).width()
+            $("#mid").css("lineHeight", $("#mid").css("height"));
+        }
+
+        //当浏览器大小变化时     //响应式
+        $(window).resize(function () {
+            $("#out").css("height", window.outerHeight)
+                .css("width", document.body.offsetWidth)
+            $("#mid").css("lineHeight", $("#mid").css("height"));
+            let now_width = parseInt(document.body.offsetWidth);
+            //this.console.log(now_width);
+            //小方块的大小
+            if (now_width < 500) {
+                $(".frame").css("width", now_width * 0.8 + "px")
+                    .css("height", now_width * 0.8 + "px");
+                $(".cube").css("marginLeft", parseInt($(".frame").css("height")) / 150 + "px")
+                    .css("marginRight", parseInt($(".frame").css("height")) / 150 + "px")
+                    .css("marginTop", (parseInt($(".frame").css("height")) / 150 - 3) + "px")
+                    .css("marginBottom", (parseInt($(".frame").css("height")) / 150 - 3) + "px");
+            } else {
+                $(".cube").css("marginLeft", "3px")
+                    .css("marginRight", "3px")
+                    .css("marginTop", "0px")
+                    .css("marginBottom", "0px");
+            }
+            //initial_image 的大小
+            //start 的大小
+            if (now_width < 250) {
+                $(".initial_image").css("width", now_width * 0.8 + "px")
+                    .css("height", now_width * 0.8 + "px");
+                $(".start").css("width", now_width * 0.8 + "px");
+            }
+        });
+
+        $("#exit").on("click", function () { $("#out").fadeOut(300); });
+
+        //找到blank的div下标
+        function find_blank() {
+            for (let i = 0; i < divs.length; i++) {
+                if (document.getElementById("cube_" + PrefixInteger(i, 2)).style.backgroundImage === blank)
+                    return i;
+            }
+        }
+    </script>
+    <script src="../../../js/nav.js"></script>
+</body>
+</html>
