@@ -1,8 +1,9 @@
 // 注意 strs 的长度需要为奇数
-let strs = ["Welcome to", "banbao(990)'s", "world"];
-let container = d3.select("#container");
-let lyrics = Array();
-let songs = ["nianlunshuo.txt", "xingzi.txt"];
+const strs = ["Welcome to", "banbao(990)'s", "world"];
+const container = d3.select("#container");
+const body = d3.select("body");
+const lyrics = Array();
+const songs = ["nianlunshuo.txt", "xingzi.txt"];
 const CIRCLES = songs.length;
 for (let i = 0; i < CIRCLES; ++i) {
     lyrics.push("");
@@ -25,16 +26,28 @@ function main() {
 }
 
 function init() {
-    let body = d3.select("body").style("visibility", "hidden");
-    // 监听加载状态改变
-    document.onreadystatechange = completeLoading;
-    function completeLoading() {
-        if (document.readyState == "complete") {
-            body.style("visibility", "visible");
-        }
-    }
+    body.style("visibility", "hidden");
     paintAll();
     d3.select(window).on("resize", paintAll);
+    loadFonts();
+}
+
+// 等待字体加载完成之后再显示, 防止字体突然变化
+async function loadFonts() {
+    const font1 = new FontFace(
+        "WildySign",
+        'url("/utils/css/fonts/Wildy Sign-Personal Use.otf")'
+    );
+    await font1.load();
+    document.fonts.add(font1);
+
+    const font2 = new FontFace(
+        "YanShiXiaXingKai",
+        'url("/utils/css/fonts/zh/YanShiXiaXingKai-2.ttf")'
+    );
+    await font2.load();
+    document.fonts.add(font2);
+    body.style("visibility", "visible");
 }
 
 function paintAll() {
@@ -77,8 +90,7 @@ function paintAll() {
     // 加上旋转的字体
     for (let i = 0; i < CIRCLES; ++i) {
         let r = (size / 2) * (0.5 + (0.4 * (i + 1)) / CIRCLES);
-        let div = d3
-            .select("body")
+        let div = body
             .append("div")
             .attr("class", "rotation")
             .style("left", cleft + "px")
