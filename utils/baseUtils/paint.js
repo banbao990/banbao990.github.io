@@ -41,6 +41,18 @@ async function loadFonts() {
     await font1.load();
     document.fonts.add(font1);
     tbody.style("visibility", "visible");
+    // 加载中文字体
+    const font2 = new FontFace(
+        "YanShiXiaXingKai",
+        'url("/utils/css/fonts/zh/YanShiXiaXingKai-2.ttf")'
+    );
+    await font2.load();
+    document.fonts.add(font2);
+    // 一个动画转场
+    $("body").animate({ opacity: 0 }, 1000, function () {
+        d3.selectAll(".rotation").style("font-family", "YanShiXiaXingKai");
+        setTimeout(() => $("body").animate({ opacity: 1 }, 1000), 1000);
+    });
 }
 
 function paintAll() {
