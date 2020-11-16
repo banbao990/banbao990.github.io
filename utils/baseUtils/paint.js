@@ -25,6 +25,14 @@ function main() {
 }
 
 function init() {
+    let body = d3.select("body").style("visibility", "hidden");
+    // 监听加载状态改变
+    document.onreadystatechange = completeLoading;
+    function completeLoading() {
+        if (document.readyState == "complete") {
+            body.style("visibility", "visible");
+        }
+    }
     paintAll();
     d3.select(window).on("resize", paintAll);
 }
