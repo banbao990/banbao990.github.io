@@ -1,7 +1,7 @@
 // 注意 strs 的长度需要为奇数
 const strs = ["Welcome to", "banbao(990)'s", "world"];
 const container = d3.select("#container");
-const body = d3.select("body");
+const tbody = d3.select("body");
 const lyrics = Array();
 const songs = ["nianlunshuo.txt", "xingzi.txt"];
 const CIRCLES = songs.length;
@@ -26,7 +26,7 @@ function main() {
 }
 
 function init() {
-    body.style("visibility", "hidden");
+    tbody.style("visibility", "hidden");
     paintAll();
     d3.select(window).on("resize", paintAll);
     loadFonts();
@@ -47,7 +47,7 @@ async function loadFonts() {
     );
     await font2.load();
     document.fonts.add(font2);
-    body.style("visibility", "visible");
+    tbody.style("visibility", "visible");
 }
 
 function paintAll() {
@@ -90,7 +90,7 @@ function paintAll() {
     // 加上旋转的字体
     for (let i = 0; i < CIRCLES; ++i) {
         let r = (size / 2) * (0.5 + (0.4 * (i + 1)) / CIRCLES);
-        let div = body
+        let div = tbody
             .append("div")
             .attr("class", "rotation")
             .style("left", cleft + "px")
