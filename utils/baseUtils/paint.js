@@ -40,13 +40,6 @@ async function loadFonts() {
     );
     await font1.load();
     document.fonts.add(font1);
-
-    const font2 = new FontFace(
-        "YanShiXiaXingKai",
-        'url("/utils/css/fonts/zh/YanShiXiaXingKai-2.ttf")'
-    );
-    await font2.load();
-    document.fonts.add(font2);
     tbody.style("visibility", "visible");
 }
 
