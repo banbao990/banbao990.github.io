@@ -5,6 +5,8 @@ const tbody = d3.select("body");
 const lyrics = Array();
 const songs = ["nianlunshuo.txt", "xingzi.txt"];
 const CIRCLES = songs.length;
+let zhFontLoaded = false;
+
 for (let i = 0; i < CIRCLES; ++i) {
     lyrics.push("");
 }
@@ -53,6 +55,7 @@ async function loadFonts() {
         d3.selectAll(".rotation").style("font-family", "YanShiXiaXingKai");
         setTimeout(() => $("body").animate({ opacity: 1 }, 1000), 1000);
     });
+    zhFontLoaded = true;
 }
 
 function paintAll() {
@@ -108,7 +111,10 @@ function paintAll() {
             .attr("height", size)
             .attr("width", size)
             .style("font-size", smallFontSize + "px");
-
+        // 如果已经加载好了中文字体, 直接设置即可
+        if (zhFontLoaded) {
+            rotation.style("font-family", "YanShiXiaXingKai");
+        }
         rotation
             .append("path")
             .attr("id", "path" + i)
