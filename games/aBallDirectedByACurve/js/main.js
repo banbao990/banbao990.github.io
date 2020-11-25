@@ -14,8 +14,8 @@ let track = new Array();
 // 球与棋盘
 let ball = null,
     chess = null,
-    grid = null;
-
+    grid = null,
+    text = null;
 // {} => Map
 const index2rect = new Map();
 
@@ -45,6 +45,13 @@ function initiation() {
     chess = svg.append("g").attr("id", "chess");
     // ball
     ball = svg.append("circle").attr("id", "ball");
+    // text
+    text = svg
+        .append("text")
+        .style("font-family", "consolas")
+        .attr("text-anchor", "left")
+        .text("Draw a pattern, then CLICK me!")
+        .style("visibility", "hidden");
     // else
     let t = Math.min(HEIGHT, WIDTH);
     t -= t % DELTA;
@@ -65,6 +72,14 @@ function constructBall() {
         .attr("r", DELTA)
         .attr("cx", DELTA)
         .attr("cy", DELTA)
+        .on("mouseover", () => {
+            text.attr("x", Number(ball.attr("cx")) + DELTA * 2)
+                .attr("y", Number(ball.attr("cx")) + DELTA / 2)
+                .style("visibility", "visible");
+        })
+        .on("mouseout", () => {
+            text.style("visibility", "hidden");
+        })
         .on("click", function () {
             let d = track.shift(); // 取出第一个元素的值并删除
             if (d === undefined) {
@@ -90,7 +105,7 @@ function constructBall() {
                     .attr("r", DELTA)
                     .attr("cx", DELTA)
                     .attr("cy", DELTA);
-            }, 1000);
+            }, 500);
         } else {
             ball.transition(timeOut)
                 .ease(d3.easeLinear)
