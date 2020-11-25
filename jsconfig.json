@@ -1,6 +1,6 @@
 {
     "exclude": ["node_modules"],
     "typeAcquisition": {
-        "include": ["d3"]
+        "include": ["d3", "jquery"]
     }
 }
