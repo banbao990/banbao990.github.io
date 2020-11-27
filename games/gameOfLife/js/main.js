@@ -93,6 +93,9 @@ function initiation() {
         .style("font-family", "consolas")
         .attr("text-anchor", "left")
         .style("visibility", "hidden");
+    if (WIDTH <= HEIGHT * 1.3) {
+        text.attr("x", DELTA * 3);
+    }
     // else
     let t = Math.min(HEIGHT, WIDTH);
     t -= t % DELTA;
@@ -122,7 +125,7 @@ function constructBall() {
             // 获取宽度
             text.text(d)
                 // .attr("x", -(cx + DELTA * 2))
-                .attr("x", -50 - (cx + DELTA * 2))
+                // .attr("x", -50 - (cx + DELTA * 2))
                 .attr("y", cy + DELTA / 2)
                 .style("visibility", "visible");
         })
