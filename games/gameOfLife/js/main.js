@@ -22,7 +22,9 @@ let LENGTH;
 let ball = null,
     chess = null,
     grid = null,
-    text = null;
+    text = null,
+    dinput = null,
+    jinput = null;
 // {} => Map
 const index2rect = new Map();
 
@@ -48,7 +50,7 @@ let checkNodes = new Set();
 
 // 内置的 Pattern
 let patterns = null;
-let nowPatterIndex = -1;
+let nowPatterIndex = 0;
 let patternLength = 0;
 
 // links
@@ -109,6 +111,14 @@ function initiation() {
         .attr("id", "backSvg")
         .style("top", Y1 + "px")
         .style("left", X1 + "px");
+    // input
+    jinput = $("#selectPattern");
+    dinput = d3
+        .select("#selectPattern")
+        .style("top", Y1 + "px")
+        .style("left", X1 + "px")
+        .style("height", DELTA * 2 - 6 + "px")
+        .style("width", "200px");
 }
 
 // 构造小球
@@ -116,7 +126,7 @@ function constructBall() {
     ball.attr("fill", "red")
         .attr("r", DELTA)
         .attr("cx", DELTA)
-        .attr("cy", (d, i) => (i + 1) * 3 * DELTA)
+        .attr("cy", (d, i) => (i + 1) * 4 * DELTA)
         .on("mouseover", function (e, d) {
             let now = d3.select(this);
             // 使用 ()=>{} 的方法下一行报错
@@ -367,9 +377,34 @@ function randomFlip() {
 // 展示内置的 pattern
 function showPatterns() {
     if (patterns === null) {
-        d3.json("data/pattern.json").then(function (DATA) {
+        d3.json("data/pattern.min.json").then(function (DATA) {
             patterns = DATA.patterns;
-            patternLength = DATA.length;
+            patternLength = Number(DATA.length);
+            dinput
+                .attr(
+                    "placeholder",
+                    "select built-in pattern" +
+                        "(0-" +
+                        (patternLength - 1) +
+                        ")"
+                )
+                .on("keyup", (e) => {
+                    // enter
+                    if (e.keyCode != 13) {
+                        return;
+                    }
+                    let val = Number(jinput.val());
+                    if (!isNaN(val)) {
+                        if (val < 0 || val >= patternLength) {
+                            jinput.val("Out of Bound!");
+                        } else {
+                            reset();
+                            nowPatterIndex = val;
+                            showSelectedPattern();
+                        }
+                    }
+                })
+                .style("visibility", "visible");
             showPatterns();
         });
     } else {
@@ -383,6 +418,7 @@ function showPatterns() {
         for (let i in now) {
             flip(index2rect.get(now[i].i + " " + now[i].j));
         }
+        jinput.val("Pattern " + nowPatterIndex);
     }
 
     function patternChange() {
