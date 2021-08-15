@@ -1,0 +1,141 @@
+* {
+  font-size: 20px;
+  font-family: Consolas, "Adobe Kaiti Std";
+}
+
+.frame {
+  width: 360px;
+  height: 700px;
+  margin: auto;
+  background-color: #48b842;
+  position: relative;
+}
+
+.introduction {
+  text-align: center;
+  border-bottom: 1px rgba(255, 3, 3, 0.1607843137254902) solid;
+}
+
+.question {
+  left: 45px;
+  position: relative;
+}
+
+.answer {
+  margin: auto;
+  position: relative;
+  text-align: center;
+}
+
+.answer_text {
+  width: 260px;
+  text-align: center;
+}
+
+.buttons {
+  text-align: center;
+  margin: 20px 0px;
+  height: 210px;
+}
+
+.my_button {
+  font-family: "Kaiti";
+  padding: 2px 0px;
+  margin: 10px auto;
+}
+
+.difficult {
+  position: absolute;
+  height: auto;
+  width: 238px;
+  left: 400px;
+  top: 314px;
+  background-color: yellow;
+  text-align: center;
+  font-size: 1.1em;
+  display: none;
+}
+
+button:hover {
+  background-color: red;
+}
+
+.history {
+  overflow-y: auto;
+  height: 250px;
+  width: 300px;
+  position: relative;
+  left: 400px;
+  bottom: 500px;
+  background-color: rgba(210, 180, 140, 0.10196078431372549);
+}
+
+.score_frame {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  left: -250px;
+  top: 100px;
+  background: rgba(211, 193, 193, 0.09019607843137255);
+  line-height: 50px;
+  text-align: center;
+}
+
+.score {
+  font-size: 25px;
+  color: red;
+}
+
+.img {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  position: absolute;
+  right: -260px;
+  top: 400px;
+  display: none;
+}
+
+.img img {
+  /*图片占满div*/
+  height: 100%;
+  width: 100%;
+}
+
+.battery {
+  width: 150px;
+  height: 30px;
+  border: 1px rgb(0, 0, 0) solid;
+  border-radius: 2px;
+  position: relative;
+  transition: box-shadow, 1s;
+  top: 34px;
+  margin: 0 auto;
+  box-shadow: inset 0px 0px 0px #00ff0a;
+}
+
+.battery_frame {
+  position: absolute;
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.02);
+  height: 100px;
+  vertical-align: middle;
+  border-radius: 1px;
+  margin-right: 100px;
+  top: 300px;
+  left: -300px;
+}
+
+.yes_or_no {
+  height: auto;
+  width: 250px;
+  position: absolute;
+  left: -324px;
+  top: 500px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  background-color: rgba(76, 171, 165, 0.06);
+  color: red;
+  display: none;
+}

@@ -15,7 +15,7 @@
     <div class="introduction">
       介绍<br />
       1.点击按钮实现各自功能<br />
-      2.每个整数都在1-100之间<br />
+      2.每个整数都在-100~100之间<br />
       3.答对+2,基本正确+1,答错-2<br />
       4.提示-1<br />
       5.分数:30分良好,50分优秀<br />
@@ -66,15 +66,15 @@
     <div id="no" class="yes_or_no">答错了,再接再厉哦</div>
     <div id="just_so_so" class="yes_or_no">小老弟,差点意思哦</div>
     <script>
-      function keyboredCMD() {//实现enter键换题
+      function keyboredCMD() {// 实现enter键换题
         switch (event.keyCode) {
-          case 13://13:enter
+          case 13:// 13:enter
             judge();
             break;
-          case 16://16:shift
+          case 16:// 16:shift
             show_another_question_function();
             break;
-          case 17://17:ctrl
+          case 17:// 17:ctrl
             show_answer();
             break;
           default:
@@ -82,8 +82,8 @@
         }
       }
       var number1, number2, fake_operator, operator, answer;
-      var is_judge = 1;//判断有没有判断过
-      var can_tip = 0; //判断能不能提示       //一开始不能提示，提示过了就不提示
+      var is_judge = 1;// 判断有没有判断过
+      var can_tip = 0; // 判断能不能提示       //一开始不能提示，提示过了就不提示
       var can_produce_new_question = 1;
       function show_another_question_function() {
         if (can_produce_new_question == 0) {
@@ -95,39 +95,15 @@
         document.getElementById('to_difficult').style.display = 'none';
         document.getElementById('difficult').style.display = 'none';
         document.getElementById('tip_show_answer').innerHTML = "答案:";
-        number1 = Math.floor((Math.random() * 100)) + 1;
-        number2 = Math.floor((Math.random() * 100)) + 1;
-        fake_operator = Math.random();
-        //if (fake_operator < 0.1) {
-        //    number2 = Math.floor((Math.random() * 3)) + 2;
-        //    operator = '^';
-        //    answer = Math.pow(number1, number2);
-        //    document.getElementById('to_difficult').style.display = 'block';
-        //} else 
-        if (fake_operator < 0.3) {
-          operator = '-';
-          // 保证不出现负数
-          if (number1 < number2) {
-            let tempNumber = number1;
-            number1 = number2;
-            number2 = tempNumber;
-          }
-          answer = number1 - number2;
-          if (answer < 0)
-            document.getElementById('difficult').style.display = 'block';
-        } else if (fake_operator < 0.8) {
-          operator = '*';
-          answer = number1 * number2;
-        }
-        //else if (fake_operator < 0.7) {
-        //    operator = '/';
-        //    answer = number1 / number2;
-        //}
-        else {
-          operator = '+';
-          answer = number1 + number2;
-        }
-        document.getElementById('question').innerHTML = number1 + " " + operator + " " + number2 + " =";
+        number1 = Math.floor((Math.random() * 200)) + 1 - 100;
+        number2 = Math.floor((Math.random() * 200)) + 1 - 100;
+        operator = '-';
+        answer = number1 - number2;
+        document.getElementById('question').innerHTML =
+          ((number1 < 0) ? ("(" + number1 + ")") : number1)
+          + " " + operator + " "
+          + ((number2 < 0) ? ("(" + number2 + ")") : number2)
+          + " =";
         document.getElementById('answer_text').value = "";
       }
 
@@ -138,11 +114,16 @@
         is_judge = 1;
         var XX = document.getElementById('history');
         var input_answer = parseFloat(document.getElementById('answer_text').value);
-        var test = "";                                          //检验有没有输入
+        var test = "";                                          // 检验有没有输入
         test = document.getElementById('answer_text').value;
-        let output_answer = Math.round(answer * 10000) / 10000; //小数四舍五入到小数点后4位
-        if (test != "" && !isNaN(input_answer))
-          XX.innerHTML += number1 + " " + operator + " " + number2 + " = " + input_answer + " ";
+        let output_answer = Math.round(answer * 10000) / 10000; // 小数四舍五入到小数点后4位
+        if (test != "" && !isNaN(input_answer)) {
+          XX.innerHTML +=
+            ((number1 < 0) ? ("(" + number1 + ")") : number1)
+            + " " + operator + " "
+            + ((number2 < 0) ? ("(" + number2 + ")") : number2)
+            + " = " + input_answer + " ";
+        }
         if (test === "") {
           is_judge = 0;
           can_produce_new_question = 0; // 没有答题不能生成新题目
