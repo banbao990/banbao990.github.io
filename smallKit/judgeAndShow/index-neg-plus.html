@@ -97,8 +97,14 @@
         document.getElementById('tip_show_answer').innerHTML = "答案:";
         number1 = Math.floor((Math.random() * 200)) + 1 - 100;
         number2 = Math.floor((Math.random() * 200)) + 1 - 100;
-        operator = '-';
-        answer = number1 - number2;
+        fake_operator = Math.random();
+        if (fake_operator < 0.3) {
+          operator = '+';
+          answer = number1 + number2;
+        } else {
+          operator = '-';
+          answer = number1 - number2;
+        }
         document.getElementById('question').innerHTML =
           ((number1 < 0) ? ("(" + number1 + ")") : number1)
           + " " + operator + " "
