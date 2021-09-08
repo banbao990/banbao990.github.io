@@ -205,7 +205,7 @@
             <div class="shape shape_3"></div>
             <div class="shape shape_4"></div>
         </div>
-        <!--LOGIN-->
+        <!--SIGN UP-->
         <div class="frame" id="sign_up">
             <div>username<input type="text" id="sign_up_username" onkeydown="sign_up_toPassword()" /></div>
             <div>password<input type="text" id="sign_up_password" onkeydown="sign_up_sub()" /></div>
@@ -218,7 +218,7 @@
                 </a>
             </section>
         </div>
-        <!--SIGN UP-->
+        <!--LOGIN-->
         <div class="frame" id="to_make_sure">
             <div class="login">LOGIN</div>
             <div class="INPUT"><i class="fa fa-home"></i>&nbsp;<input id="username" type="text" onkeydown="toPassword()" placeholder="username" autocomplete="off" autofocus /></div>
@@ -256,6 +256,10 @@
         <div class="content btn-4" id="home"><a href="#"><i class="fa fa-home"></i>&nbsp;HOME</a></div>
     </div>
     <script>
+        // 默认加上用户名和密码
+        $("#username").val("banbao");
+        $("#password").val("123456");
+
         //enter跳转
         function toPassword() {
             if (event.keyCode != 13)
@@ -334,6 +338,8 @@
             }           
             localStorage.setItem("aaa", str1 + " " + str2);
             $("#sign_up").fadeOut(500, function () {
+                $("#username").val(str1);
+                $("#password").val(str2);
                 $("#to_make_sure").fadeIn(500);
                 $("#username").focus();
             });
