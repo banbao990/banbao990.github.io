@@ -1,6 +1,6 @@
 // JavaScript source code
-//µ¼º½À¸
-//µã»÷cheer,nav½øÀ´
+// å¯¼èˆªæ 
+// ç‚¹å‡» cheer, nav è¿›æ¥
 $(".cheer").on("click", function () {
     let boxWidth = parseInt($(".nav").css("width"));
     let nowLeft = parseInt($(".nav").css("left"));

@@ -5,14 +5,14 @@ window.onload = function () {
     oC.onmousedown = function (ev) {
         var ev = ev || window.event;
         oCG.beginPath();
-        /*Ëæ»úÉú³ÉÒ»ÖÖÑÕÉ«*/
+        /*éšæœºç”Ÿæˆä¸€ç§é¢œè‰²*/
         let r1 = Math.floor(Math.random() * 255);
         let r2 = Math.floor(Math.random() * 255);
         let r3 = Math.floor(Math.random() * 255);
         oCG.strokeStyle = "rgb(" + r1 + "," + r2 + "," + r3 + ")";
         oCG.moveTo(ev.clientX - oC.offsetLeft, ev.clientY - oC.offsetTop);
         document.onmousemove = function (ev) {
-            var ev = ev || window.event;//»ñÈ¡event¶ÔÏó
+            var ev = ev || window.event;//è·å–eventå¯¹è±¡
             oCG.lineTo(ev.clientX - oC.offsetLeft, ev.clientY - oC.offsetTop);
             oCG.stroke();
         };
@@ -24,7 +24,7 @@ window.onload = function () {
 };
 
 $(window).resize(function () {
-    //´°¿Ú´óĞ¡±ä»¯Ê±Çå¿Õ
+    //çª—å£å¤§å°å˜åŒ–æ—¶æ¸…ç©º
     c1.width = document.documentElement.clientWidth;
     c1.height = document.documentElement.clientHeight;
 });
