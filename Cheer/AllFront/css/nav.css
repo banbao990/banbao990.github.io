@@ -8,6 +8,11 @@
     z-index: 10; /*设置高度*/
 }
 
+@font-face {
+    font-family: "Brush Script Std";
+    src: url("font/BrushScriptStd.otf");
+}
+
 .cheer {
     position: absolute;
     left: 0px;
