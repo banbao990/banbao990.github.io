@@ -214,6 +214,7 @@
 
         //点击开始游戏按钮
         $(".start").on("click", function () {
+            init();
             random_image();
             $("#start_or_reflash").html("重新开始游戏");
         });
