@@ -12,7 +12,7 @@ for (let i = 0; i < CIRCLES; ++i) {
 }
 
 function readLyrics(i, songName) {
-    return d3.text("utils/baseUtils/" + songName).then(function (data) {
+    return d3.text("utils/" + songName).then(function (data) {
         let temp = data.replace(/\n/g, " ").replace(/\s+/g, " ");
         lyrics[i] = temp;
         if (i + 1 === CIRCLES) {
