@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Project page for NRRS: Neural Russian Roulette and Splitting, published in IEEE TVCG 2026.">
+  <title>NRRS</title>
+  <link rel="shortcut icon" href="/utils/img/banbao(990).jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../css/image-lightbox.css">
+  <script src="../js/image-lightbox.js" defer></script>
+  <style>
+    :root {
+      --blue: #1266d4;
+      --blue-dark: #0b4fae;
+      --ink: #20242a;
+      --muted: #68717d;
+      --line: #e2e6ea;
+      --soft: #f6f7f8;
+      --soft-blue: #f3f8ff;
+      --white: #fff;
+      --content: 1180px;
+      --display: "Montserrat", sans-serif;
+      --sans: "Segoe UI Variable", "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.68;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--blue);
+      text-underline-offset: 0.18em;
+    }
+
+    a:hover {
+      color: var(--blue-dark);
+    }
+
+    a:focus-visible {
+      outline: 3px solid rgba(18, 102, 212, 0.35);
+      outline-offset: 4px;
+      border-radius: 3px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 20;
+      padding: 8px 12px;
+      color: var(--white);
+      background: var(--blue-dark);
+      transform: translateY(-180%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .container {
+      width: min(calc(100% - 56px), var(--content));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow: 0 2px 8px rgba(26, 35, 47, 0.07);
+    }
+
+    .header-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      gap: 38px;
+    }
+
+    .brand {
+      color: #2b2f34;
+      font-family: var(--display);
+      font-size: 23px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      text-decoration: none;
+    }
+
+    nav {
+      flex: 1;
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 26px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    nav a {
+      color: #435064;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .project-hero {
+      padding-block: 69px 78px;
+      text-align: center;
+    }
+
+    .venue-label {
+      margin: 0 0 14px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+    }
+
+    .project-hero h1 {
+      max-width: 100%;
+      margin: 0 auto 19px;
+      font-family: var(--display);
+      font-size: clamp(32px, 3.1vw, 42px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.14;
+    }
+
+    @media (min-width: 900px) {
+      .project-hero h1 {
+        white-space: nowrap;
+      }
+    }
+
+    .authors {
+      max-width: 900px;
+      margin: 0 auto;
+      color: #39424d;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .authors strong {
+      color: var(--ink);
+    }
+
+    .affiliations {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .project-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 27px;
+    }
+
+    .button,
+    .button-disabled {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 15px;
+      border: 1px solid var(--blue);
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .button-primary {
+      color: var(--white);
+      background: var(--blue);
+    }
+
+    .button-primary:hover {
+      color: var(--white);
+      background: var(--blue-dark);
+    }
+
+    .button-secondary {
+      color: var(--blue);
+      background: var(--white);
+    }
+
+    .button-disabled {
+      border-color: #bec4cc;
+      color: #7c848e;
+      background: #eef0f2;
+      cursor: default;
+    }
+
+    .hero-image {
+      width: min(100%, 1040px);
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin: 52px auto 0;
+      border: 1px solid #d5dbe1;
+      border-radius: 5px;
+      background: var(--white);
+    }
+
+    .content-section {
+      padding-block: 72px 78px;
+      border-top: 1px solid var(--line);
+    }
+
+    .content-section.soft {
+      background: var(--soft);
+    }
+
+    .section-grid {
+      display: block;
+    }
+
+    .section-title {
+      margin: 0 0 38px;
+      font-family: var(--display);
+      font-size: 36px;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 1.18;
+      text-align: center;
+    }
+
+    .section-body {
+      width: min(100%, 980px);
+      margin-inline: auto;
+    }
+
+    .section-body> :first-child {
+      margin-top: 0;
+    }
+
+    .section-body> :last-child {
+      margin-bottom: 0;
+    }
+
+    .abstract {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.78;
+      text-align: justify;
+    }
+
+    .contributions {
+      display: grid;
+      gap: 8px;
+      width: min(100%, 980px);
+      margin: 0 auto;
+      padding: 0;
+      list-style: none;
+    }
+
+    .contributions li {
+      position: relative;
+      padding: 3px 0 3px 36px;
+      line-height: 1.55;
+    }
+
+    .contributions li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 23px;
+      height: 23px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #b9d5f7;
+      border-radius: 50%;
+      background: #eaf3ff;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .method-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid #d6dbe1;
+      border-radius: 5px;
+      background: var(--white);
+    }
+
+    .citation-box {
+      position: relative;
+      width: min(100%, 980px);
+      margin-inline: auto;
+      overflow-x: auto;
+      padding: 21px 23px;
+      border: 1px solid #d6dbe1;
+      border-radius: 5px;
+      background: #fbfcfd;
+    }
+
+    pre {
+      margin: 0;
+      color: #2e3845;
+      font: 14px/1.62 Consolas, "SFMono-Regular", monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    footer {
+      padding-block: 36px 42px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--white);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    @media (max-width: 800px) {
+      .section-grid {
+        grid-template-columns: 1fr;
+        gap: 31px;
+      }
+
+      .section-title {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(calc(100% - 34px), var(--content));
+      }
+
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 11px;
+        padding-block: 15px;
+      }
+
+      nav ul {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .project-hero {
+        padding-block: 49px 58px;
+        text-align: left;
+      }
+
+      .project-hero h1,
+      .authors {
+        margin-inline: 0;
+      }
+
+      .project-actions {
+        justify-content: flex-start;
+      }
+
+      .hero-image {
+        margin-top: 38px;
+      }
+
+      .content-section {
+        padding-block: 55px 61px;
+      }
+
+      .abstract {
+        text-align: left;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../">Homepage</a>
+      <nav aria-label="Project navigation">
+        <ul>
+          <li><a href="../../">Home</a></li>
+          <li><a href="#abstract">Abstract</a></li>
+          <li><a href="#contributions">Contributions</a></li>
+          <li><a href="#method">Method</a></li>
+          <li><a href="#citation">Cite</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="project-hero" aria-labelledby="project-title">
+      <div class="container">
+        <p class="venue-label">IEEE TVCG · 2026</p>
+        <h1 id="project-title">NRRS: Neural Russian Roulette and Splitting</h1>
+        <p class="authors"><strong><a href="/">Haojie Jin</a></strong>, Jierui Ren, Yisong Chen, Guoping Wang, and <a
+            href="https://lishengpku.github.io/" target="_blank" rel="noopener">Sheng Li</a></p>
+        <p class="affiliations">Peking University</p>
+        <div class="project-actions">
+          <a class="button button-primary" href="https://doi.org/10.1109/TVCG.2026.3691565">IEEE Paper</a>
+          <a class="button button-secondary" href="NRRS-AuthorVersion-WithAppendix.pdf">Paper · Author Version</a>
+          <a class="button button-secondary" href="#citation">BibTeX</a>
+          <span class="button-disabled" aria-label="Code will be released later">Code · Coming Soon</span>
+          <span class="button-disabled" aria-label="Online result viewer will be added later">Result Viewer · Coming
+            Soon</span>
+        </div>
+        <img class="hero-image zoomable-image" src="NRRS-result.png" width="2560" height="1440"
+          alt="Representative NRRS results comparing rendering quality and efficiency across Apartment2, Sponza Caustic, and Sun Temple Interior">
+      </div>
+    </section>
+
+    <section class="content-section" id="abstract" aria-labelledby="abstract-title">
+      <div class="container section-grid">
+        <h2 class="section-title" id="abstract-title">Abstract</h2>
+        <div class="section-body">
+          <p class="abstract">We propose a novel framework for Russian Roulette and Splitting (RRS) tailored to
+            wavefront path tracing, a highly parallel rendering architecture that processes path states in batched,
+            stage-wise execution for efficient GPU utilization. Traditional RRS methods, with unpredictable path counts,
+            are fundamentally incompatible with wavefront's preallocated memory and scheduling requirements. To resolve
+            this, we introduce a normalized RRS formulation with a bounded path count, enabling stable and
+            memory-efficient execution. Furthermore, we pioneer the use of neural networks to learn RRS factors,
+            presenting two models: NRRS and AID-NRRS. Both feature a carefully designed RRSNet that explicitly
+            incorporates RRS normalization. We also introduce Mix-Depth, a path-depth-aware mechanism that adaptively
+            regulates neural evaluation. Extensive experiments demonstrate that our method outperforms traditional
+            heuristics and recent RRS techniques across a variety of complex scenes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft" id="contributions" aria-labelledby="contributions-title">
+      <div class="container section-grid">
+        <h2 class="section-title" id="contributions-title">Contributions</h2>
+        <ul class="contributions">
+          <li>A normalized RRS framework designed for efficient and practical wavefront path tracing.</li>
+          <li>NRRS and AID-NRRS, the first neural models for estimating RRS factors with high efficiency.</li>
+          <li>Mix-Depth, a general path-depth-aware strategy that combines multiple RRS approaches with minimal
+            overhead.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section" id="method" aria-labelledby="method-title">
+      <div class="container section-grid">
+        <h2 class="section-title" id="method-title">Method Overview</h2>
+        <div class="section-body">
+          <img class="method-image zoomable-image" src="NRRS-method.png" width="2522" height="1102"
+            loading="lazy"
+            alt="NRRS method overview: A, wavefront architecture with the RRS module; B, the NRRS and AID-NRRS architectural variants; C, the RRSNet loss design">
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft" id="citation" aria-labelledby="citation-title">
+      <div class="container section-grid">
+        <h2 class="section-title" id="citation-title">Citation</h2>
+        <div class="citation-box">
+          <pre><code>@article{jin2026NRRS,
+  author   = {Jin, Haojie and Ren, Jierui and Chen, Yisong and Wang, Guoping and Li, Sheng},
+  journal  = {IEEE Transactions on Visualization and Computer Graphics},
+  title    = {NRRS: Neural Russian Roulette and Splitting},
+  year     = {2026},
+  volume   = {32},
+  number   = {7},
+  pages    = {7001-7016},
+  keywords = {Global Illumination, Neural Networks, Russian Roulette and Splitting, Wavefront architecture},
+  doi      = {10.1109/TVCG.2026.3691565}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a href="../../">← Back to homepage</a>
+      <span>© 2026 Haojie Jin</span>
+    </div>
+  </footer>
+
+</body>
+
+</html>

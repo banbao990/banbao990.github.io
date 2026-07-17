@@ -1,0 +1,107 @@
+.zoomable-image {
+  cursor: zoom-in;
+}
+
+.zoomable-image:focus-visible {
+  outline: 3px solid rgba(18, 102, 212, 0.42);
+  outline-offset: 4px;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 24px;
+  overflow: hidden;
+  border: 0;
+  background: rgba(8, 13, 21, 0.94);
+}
+
+.image-lightbox[open] {
+  display: grid;
+  place-items: center;
+}
+
+.image-lightbox::backdrop {
+  background: rgba(8, 13, 21, 0.94);
+}
+
+.lightbox-image {
+  width: auto;
+  height: auto;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 48px);
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+}
+
+.lightbox-close {
+  position: fixed;
+  z-index: 1;
+  top: 16px;
+  right: 18px;
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  display: block;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 50%;
+  color: var(--white, #fff);
+  background: rgba(20, 27, 37, 0.76);
+  font-size: 0;
+  cursor: pointer;
+}
+
+.lightbox-close::before,
+.lightbox-close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transform-origin: center;
+}
+
+.lightbox-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.lightbox-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus-visible {
+  background: var(--blue, #1266d4);
+  outline: none;
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+@media (max-width: 620px) {
+  .image-lightbox {
+    padding: 12px;
+  }
+
+  .lightbox-image {
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+  }
+
+  .lightbox-close {
+    top: 12px;
+    right: 12px;
+  }
+}
