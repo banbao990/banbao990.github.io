@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Interactive experiment result viewer">
+    <title>Interactive Result Viewer</title>
+    <link rel="shortcut icon" href="/utils/img/banbao(990).jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;display=swap">
+    <link rel="stylesheet" href="assets/viewer.css">
+</head>
+<body class="overview-page">
+    <header class="overview-header">
+        <p class="eyebrow">NRRS experiment results</p>
+        <h1>Interactive Result Viewer</h1>
+        <p class="overview-lead">Select a scene to compare every configured method at full resolution (720p).</p>
+        <p class="overview-note">All images use 60 seconds of rendering time. Methods that require training use 60 seconds of training time.</p>
+        <div class="overview-actions">
+            <div class="overview-summary"><strong>12</strong> scenes <span></span> <strong>6</strong> methods per scene</div>
+            <a class="back-link overview-home-link" href="../index.html">← Homepage</a>
+        </div>
+    </header>
+    <main class="scene-grid">
+        
+            <a class="scene-card" href="apartment1/index.html">
+                <div class="scene-card__image">
+                    <img src="apartment1/reference.png" alt="Apartment1 preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Apartment1</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="noenv_apartment2/index.html">
+                <div class="scene-card__image">
+                    <img src="noenv_apartment2/reference.png" alt="Apartment2 preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Apartment2</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="apartment3/index.html">
+                <div class="scene-card__image">
+                    <img src="apartment3/reference.png" alt="Apartment3 preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Apartment3</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="bistro-interior/index.html">
+                <div class="scene-card__image">
+                    <img src="bistro-interior/reference.png" alt="Bistro Interior preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Bistro Interior</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="m1-f210/index.html">
+                <div class="scene-card__image">
+                    <img src="m1-f210/reference.png" alt="Measure One preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Measure One</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="apartment1-v2-view2/index.html">
+                <div class="scene-card__image">
+                    <img src="apartment1-v2-view2/reference.png" alt="Pool Large preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Pool Large</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="san-miguel-view2/index.html">
+                <div class="scene-card__image">
+                    <img src="san-miguel-view2/reference.png" alt="San Miguel preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>San Miguel</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="sponza-caustic/index.html">
+                <div class="scene-card__image">
+                    <img src="sponza-caustic/reference.png" alt="Sponza Caustic preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Sponza Caustic</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="sponza-glossy/index.html">
+                <div class="scene-card__image">
+                    <img src="sponza-glossy/reference.png" alt="Sponza Glossy preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Sponza Glossy</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="sun-temple/index.html">
+                <div class="scene-card__image">
+                    <img src="sun-temple/reference.png" alt="Sun Temple preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Sun Temple</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="sun-temple-v2-lighter-view2/index.html">
+                <div class="scene-card__image">
+                    <img src="sun-temple-v2-lighter-view2/reference.png" alt="Sun Temple Interior preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Sun Temple Interior</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+            <a class="scene-card" href="tropical_bedroom_cx/index.html">
+                <div class="scene-card__image">
+                    <img src="tropical_bedroom_cx/reference.png" alt="Tropical Bedroom preview" loading="lazy">
+                    <span class="scene-card__count">6 methods</span>
+                </div>
+                <div class="scene-card__body">
+                    <h2>Tropical Bedroom</h2>
+                    <p>PT · ADRRS · EARS · ADRRS (NN) · NRRS+ · AID-NRRS+</p>
+                    <span class="scene-card__best">Best RelMSE · AID-NRRS+</span>
+                </div>
+            </a>
+    </main>
+    <footer class="site-footer">Interactive Result Viewer for NRRS.</footer>
+</body>
+</html>

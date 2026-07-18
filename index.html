@@ -440,27 +440,14 @@
       background: var(--white);
     }
 
-    .contact-section {
-      padding-block: 58px 64px;
+    .site-footer {
+      padding-block: 28px 32px;
       border-top: 1px solid var(--line);
       background: var(--white);
+      text-align: center;
     }
 
-    .contact-inner {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 32px;
-    }
-
-    .contact-inner h2 {
-      margin: 0;
-      font-family: var(--display);
-      font-size: 28px;
-      font-weight: 600;
-    }
-
-    .contact-inner p {
+    .site-footer p {
       margin: 0;
       color: var(--muted);
       font-size: 14px;
@@ -555,10 +542,6 @@
         display: none;
       }
 
-      .contact-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
     }
 
     @media (max-width: 390px) {
@@ -596,7 +579,7 @@
           <li><a href="#home" aria-current="page">Home</a></li>
           <li><a href="#publications">Publications</a></li>
           <li><a href="https://banbao991.github.io/" target="_blank" rel="noopener">Blog</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="mailto:jhj@pku.edu.cn">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -721,16 +704,13 @@
       </div>
     </section>
 
-    <section class="contact-section" id="contact" aria-labelledby="contact-title">
-      <div class="container contact-inner">
-        <div>
-          <h2 id="contact-title">Contact</h2>
-          <a href="mailto:jhj@pku.edu.cn">jhj@pku.edu.cn</a>
-        </div>
-        <p>© 2026 Haojie Jin · Last updated July 2026</p>
-      </div>
-    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Copyright © 2026 Haojie Jin · Last updated July 2026</p>
+    </div>
+  </footer>
 
 </body>
 

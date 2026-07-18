@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Interactive comparison for Sponza Glossy">
+    <title>Sponza Glossy · Result Viewer</title>
+    <link rel="shortcut icon" href="/utils/img/banbao(990).jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;display=swap">
+    <link rel="stylesheet" href="../assets/viewer.css">
+</head>
+<body class="viewer-page">
+    <header class="viewer-header viewer-shell">
+        <a class="back-link" href="../index.html" aria-label="Back to all scenes">← All scenes</a>
+        <div>
+            <p class="eyebrow">Interactive comparison</p>
+            <h1>Sponza Glossy</h1>
+        </div>
+        <p class="viewer-help">Wheel to zoom · drag to pan · number keys to switch · R to reset</p>
+    </header>
+    <main class="viewer-shell">
+        <div class="viewer-grid">
+            <section class="viewer-panel" aria-label="Image comparison">
+                <div class="viewer-toolbar">
+                    <div class="toolbar-copy">
+                        <span class="toolbar-label">Active method</span>
+                        <span id="method-title"></span>
+                    </div>
+                    <div class="toolbar-actions">
+                        <div id="crop-actions" class="crop-actions" aria-label="Crop presets"></div>
+                        <span id="zoom-readout">100%</span>
+                        <button id="reset-view" type="button">Reset view</button>
+                    </div>
+                </div>
+                <div id="image-stage" tabindex="0" aria-label="Zoomable result image">
+                    <img id="main-image" alt="" draggable="false">
+                    <div class="stage-overlay"><span>Full-resolution PNG · 720p</span></div>
+                </div>
+                <div id="method-tabs" role="tablist" aria-label="Rendering methods"></div>
+            </section>
+            <aside class="side-panel">
+                <div>
+                    <p class="eyebrow">Current result</p>
+                    <h2 class="panel-title">Error metrics</h2>
+                    <p class="panel-note">Lower values are better.</p>
+                </div>
+                <div class="metric-cards" aria-live="polite">
+                    <div class="metric-card">
+                        <span class="metric-name">RelMSE (×10<sup>−3</sup>)</span>
+                        <strong id="metric-relmse" class="metric-value"></strong>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-name">RayEffInv</span>
+                        <strong id="metric-rayeff" class="metric-value"></strong>
+                    </div>
+                </div>
+                <section class="side-metrics" aria-labelledby="metrics-heading">
+                    <p class="eyebrow">Numerical comparison</p>
+                    <h2 id="metrics-heading" class="panel-title">All metrics</h2>
+                    <p class="panel-note">Lower values are better.</p>
+                    <div class="table-scroll">
+                        <table>
+                            <thead><tr><th>Method</th><th>RelMSE (×10<sup>−3</sup>)</th><th>RayEffInv</th></tr></thead>
+                            <tbody id="metrics-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+                <div class="shortcut-list" aria-label="Viewer controls">
+                    <div class="shortcut-row"><span>Switch image</span><kbd>1–7</kbd></div>
+                    <div class="shortcut-row"><span>Zoom</span><kbd>Wheel</kbd></div>
+                    <div class="shortcut-row"><span>Reset</span><kbd>R</kbd></div>
+                </div>
+            </aside>
+        </div>
+        <section id="detail-panel" class="detail-panel" aria-labelledby="detail-heading" hidden>
+            <div class="detail-panel__header">
+                <div>
+                    <p class="eyebrow">Synchronized inspection</p>
+                    <h2 id="detail-heading" class="panel-title">Live detail comparison</h2>
+                    <p class="panel-note">Move over the main image to inspect the same source region across every result.</p>
+                </div>
+                <p id="detail-position" class="detail-panel__position"></p>
+            </div>
+            <div id="detail-strip" class="detail-strip" aria-label="Synchronized method details"></div>
+        </section>
+        <div class="lower-grid">
+            <section class="thumbnail-panel" aria-labelledby="thumbnails-heading">
+                <p class="eyebrow">Quick switch</p>
+                <h2 id="thumbnails-heading" class="panel-title">Methods &amp; reference</h2>
+                <div id="thumbnail-strip" aria-label="Method thumbnails"></div>
+            </section>
+        </div>
+    </main>
+    <footer class="site-footer">Sponza Glossy · Full-resolution static comparison</footer>
+    <script src="data.js"></script>
+    <script src="../assets/viewer.js"></script>
+</body>
+</html>
