@@ -128,11 +128,6 @@
       text-decoration: none;
     }
 
-    .primary-nav a[aria-current="page"] {
-      color: var(--blue);
-      font-weight: 700;
-    }
-
     .profile-section {
       padding-block: 76px 94px;
     }
@@ -422,7 +417,7 @@
       padding: 4px 10px;
       border: 1px solid #b8bec7;
       border-radius: 4px;
-      color: #7b838e;
+      color: #59636f;
       background: #eef0f2;
       font-size: 12px;
       line-height: 1;
@@ -431,7 +426,8 @@
 
     .publication-image {
       grid-area: image;
-      width: 100%;
+      width: 250px;
+      max-width: 100%;
       height: auto;
       display: block;
       object-fit: contain;
@@ -478,9 +474,6 @@
           "copy";
       }
 
-      .publication-image {
-        width: min(100%, 420px);
-      }
     }
 
     @media (max-width: 700px) {
@@ -576,7 +569,7 @@
       <a class="brand" href="#home">Homepage</a>
       <nav class="primary-nav" aria-label="Primary navigation">
         <ul>
-          <li><a href="#home" aria-current="page">Home</a></li>
+          <li><a href="#home">Home</a></li>
           <li><a href="#publications">Publications</a></li>
           <li><a href="https://banbao991.github.io/" target="_blank" rel="noopener">Blog</a></li>
           <li><a href="mailto:jhj@pku.edu.cn">Contact</a></li>
@@ -646,11 +639,28 @@
 
         <div class="publication-list">
           <article class="publication">
+            <h3><a href="https://arxiv.org/abs/2607.23122/">Occlusion-Point Reuse for Ray-Traced Ambient Occlusion and
+                Shadow</a></h3>
+            <div class="publication-copy">
+              <p class="paper-summary">Ambient occlusion (AO) and soft shadows are critical visibility cues for spatial
+                perception in real-time rendering. Hardware ray tracing provides a direct way ...</p>
+              <p class="authors">Haojie Jin, Fujia Su, Zehui Lin, Chenxiao Hu, Jierui Ren, Yuqing Yuan, Yanchen Zhang,
+                Zhongtao Wang, Yisong Chen, Kangying Cai, Guoping Wang, Sheng Li</p>
+              <div class="paper-actions">
+                <a href="https://arxiv.org/abs/2607.23122">arXiv</a>
+              </div>
+            </div>
+            <img class="publication-image zoomable-image" src="publications/Occ/occ-main-pic.jpg" width="2268"
+              height="1512" loading="lazy" decoding="async"
+              alt="Representative results for AO and soft-shadow using Occlusion-Point Reuse">
+          </article>
+
+          <article class="publication">
             <h3><a href="publications/NRRS/">NRRS: Neural Russian Roulette and Splitting</a></h3>
             <div class="publication-copy">
               <p class="paper-summary">We propose a novel framework for Russian Roulette and Splitting (RRS) tailored to
-                wavefront path tracing, a highly parallel rendering architecture...</p>
-              <p class="authors"><strong>Haojie Jin</strong>, Jierui Ren, Yisong Chen, Guoping Wang, Sheng Li</p>
+                wavefront path tracing, a highly parallel rendering architecture ...</p>
+              <p class="authors">Haojie Jin, Jierui Ren, Yisong Chen, Guoping Wang, Sheng Li</p>
               <p class="venue">IEEE Transactions on Visualization and Computer Graphics, 32(7): 7001-7016, 2026</p>
               <div class="paper-actions">
                 <a href="publications/NRRS/">Project</a>
@@ -658,9 +668,26 @@
                 <span class="coming-soon" aria-label="Code will be released later">Code · Coming Soon</span>
               </div>
             </div>
-            <img class="publication-image zoomable-image" src="publications/NRRS/NRRS-result.png" width="2560"
-              height="1440" loading="lazy"
+            <img class="publication-image zoomable-image" src="publications/NRRS/NRRS-result.png" width="2183"
+              height="1243" loading="lazy" decoding="async"
               alt="Representative NRRS results comparing rendering quality and efficiency across Apartment2, Sponza Caustic, and Sun Temple Interior">
+          </article>
+
+          <article class="publication">
+            <h3><a href="https://arxiv.org/abs/2606.08469">OctaOctree Neural Radiosity for Real-time Glossy Material
+                Rendering</a></h3>
+            <div class="publication-copy">
+              <p class="paper-summary">Modeling high-frequency outgoing radiance distributions remains a fundamental
+                challenge in global illumination, especially for glossy and specular materials. ...</p>
+              <p class="authors">Jierui Ren, Haojie Jin, Bo Pang, Meng Gai, Fei Zhu, Yisong Chen, Sheng Li</p>
+              <p class="venue">Conditionally accepted to SIGGRAPH Asia 2026 Conference Papers</p>
+              <div class="paper-actions">
+                <a href="https://arxiv.org/abs/2606.08469">arXiv</a>
+              </div>
+            </div>
+            <img class="publication-image zoomable-image" src="publications/OctaOctree/OctaOctree-main.png" width="2560"
+              height="1440" loading="lazy" decoding="async"
+              alt="Pipeline and representative results of OctaOctree Neural Radiosity for real-time glossy material rendering">
           </article>
 
           <article class="publication">
@@ -669,8 +696,7 @@
             <div class="publication-copy">
               <p class="paper-summary">Recent research on learnable neural representations has been widely adopted in
                 the field of 3D scene reconstruction and neural rendering applications. ...</p>
-              <p class="authors">Rui Su, Honghao Dong, <strong>Haojie Jin</strong>, Yisong Chen, Guoping Wang, Sheng Li
-              </p>
+              <p class="authors">Rui Su, Honghao Dong, Haojie Jin, Yisong Chen, Guoping Wang, Sheng Li</p>
               <p class="venue">SIGGRAPH Asia 2025 Conference Papers</p>
               <div class="paper-actions">
                 <a href="https://woaixuexisr.github.io/papers/neural-vertex-features/">Project</a>
@@ -678,17 +704,18 @@
                 <a href="https://github.com/woAIxuexiSR/neural-vertex-features">Code</a>
               </div>
             </div>
-            <img class="publication-image zoomable-image" src="publications/VF-NR/VF-NR-result.png" width="2560"
-              height="1440" loading="lazy"
+            <img class="publication-image zoomable-image" src="publications/VF-NR/VF-NR-result.png" width="1773"
+              height="973" loading="lazy" decoding="async"
               alt="Representative Vertex Features results comparing rendering quality and memory cost across Dining Room and Veach Ajar">
           </article>
 
           <article class="publication">
-            <h3><a href="https://woaixuexisr.github.io/papers/dynamic-neural-radiosity/">Dynamic Neural Radiosity with Multi-grid Decomposition</a></h3>
+            <h3><a href="https://woaixuexisr.github.io/papers/dynamic-neural-radiosity/">Dynamic Neural Radiosity with
+                Multi-grid Decomposition</a></h3>
             <div class="publication-copy">
-              <p class="paper-summary">Prior approaches to the neural rendering of global illumination typically rely on complex network architectures and training strategies to model ...</p>
-              <p class="authors">Rui Su, Honghao Dong, Jierui Ren, <strong>Haojie Jin</strong>, Guoping Wang, Yisong Chen, Sheng Li
-              </p>
+              <p class="paper-summary">Prior approaches to the neural rendering of global illumination typically rely on
+                complex network architectures and training strategies to model ...</p>
+              <p class="authors">Rui Su, Honghao Dong, Jierui Ren, Haojie Jin, Guoping Wang, Yisong Chen, Sheng Li</p>
               <p class="venue">SIGGRAPH Asia 2024 Conference Papers</p>
               <div class="paper-actions">
                 <a href="https://woaixuexisr.github.io/papers/dynamic-neural-radiosity/">Project</a>
@@ -696,9 +723,9 @@
                 <a href="https://github.com/woAIxuexiSR/dynamic-neural-radiosity">Code</a>
               </div>
             </div>
-            <img class="publication-image zoomable-image" src="publications/DNR/DNR-result.png" width="2560"
-              height="1440" loading="lazy"
-              alt="Representative NRRS results comparing rendering quality across Dining Room, Living Room, and Bedroom">
+            <img class="publication-image zoomable-image" src="publications/DNR/DNR-result.png" width="1715"
+              height="1205" loading="lazy" decoding="async"
+              alt="Representative Dynamic Neural Radiosity results comparing rendering quality across Dining Room, Living Room, and Bedroom">
           </article>
         </div>
       </div>
@@ -708,7 +735,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>Copyright © 2026 Haojie Jin · Last updated July 2026</p>
+      <p>© 2026 Haojie Jin · Last updated July 2026</p>
     </div>
   </footer>
 
